@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Thank You – T-Mobile 5G Home Internet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080B18; --surface: #10142A; --card: #161C35;
+  --border: rgba(255,255,255,0.07);
+  --pink: #E2006A; --pink-glow: rgba(226,0,106,0.28); --pink-light: #FF4DA6;
+  --green: #00D97E;
+  --off: #A8B2D0; --muted: #52597A; --white: #fff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 100% 45% at 50% -5%,rgba(226,0,106,0.13) 0%,transparent 65%)}
+.shell{position:relative;z-index:1;max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
+
+.check-circle{width:72px;height:72px;background:rgba(0,217,126,0.12);border:2px solid rgba(0,217,126,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:32px}
+
+.eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(0,217,126,0.1);border:1px solid rgba(0,217,126,0.25);border-radius:20px;padding:5px 13px;margin-bottom:12px;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--green)}
+
+h1{font-family:'Instrument Serif',serif;font-size:clamp(24px,6vw,30px);font-weight:400;line-height:1.2;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--pink-light)}
+
+.sub{font-size:13px;color:var(--off);line-height:1.6;max-width:300px;margin:0 auto 28px}
+
+.steps{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;width:100%;margin-bottom:24px;text-align:left}
+.steps-title{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.step-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.step-item:last-child{margin-bottom:0}
+.step-num{width:24px;height:24px;min-width:24px;background:rgba(226,0,106,0.12);border:1px solid rgba(226,0,106,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--pink-light);flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--off);line-height:1.4}
+.step-text b{color:#fff}
+
+.legal{font-size:10px;color:var(--muted);line-height:1.6;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="check-circle">✓</div>
+  <div class="eyebrow">Submission Received</div>
+  <h1>You're in! We'll be in touch <em>soon.</em></h1>
+  <p class="sub">Your availability check has been submitted. A T-Mobile representative will reach out to confirm your offer and next steps.</p>
+
+  <div class="steps">
+    <div class="steps-title">What happens next</div>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text"><b>Availability confirmed</b> — we verify T-Mobile 5G coverage at your address.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text"><b>A rep calls you</b> — usually within 1 business day to walk you through the offer.</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text"><b>Gateway ships free</b> — start your 15-day risk-free test drive with no upfront cost.</div>
+    </div>
+  </div>
+
+  <p class="legal">$35/mo requires AutoPay and a qualifying voice line. $100 gift card issued after 90 days of active service. Limited availability. Authorized T-Mobile marketing partner.</p>
+</div>
+</body>
+</html>
