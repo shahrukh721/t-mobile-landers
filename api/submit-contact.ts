@@ -21,6 +21,7 @@ export default async function handler(req: any, res: any) {
     phone     = '',
     address   = '',
     zip       = '',
+    formId    = '',
   } = parsed;
 
   const normalizedPhone = phone
@@ -76,7 +77,25 @@ export default async function handler(req: any, res: any) {
     }
 
     const data = await ghlRes.json();
-    return res.status(200).json({ ok: true, contactId: data?.contact?.id });
+    const contactId = data?.contact?.id;
+
+    if (formId) {
+      try {
+        await fetch('https://services.leadconnectorhq.com/v1/form/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formId,
+            locationId: process.env.GHL_LOCATION_ID,
+            name:  `${firstName} ${lastName}`,
+            email,
+            phone: normalizedPhone,
+          }),
+        });
+      } catch (e) { console.error('form submit:', e); }
+    }
+
+    return res.status(200).json({ ok: true, contactId });
   } catch (err) {
     console.error('submit error:', err);
     return res.status(200).json({ ok: false });

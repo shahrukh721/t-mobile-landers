@@ -403,26 +403,12 @@ async function doSubmit(){
         phone:     formData.phone,
         address:   formData.address,
         zip:       formData.zip,
+        formId:    'RrGC4bSP8qDZihXCJXux',
       })
     });
   } catch(e) {}
 
-  fillGhlForm(formData);
   window.location.href = TY_URL;
-}
-
-function fillGhlForm(data) {
-  fetch('https://services.leadconnectorhq.com/v1/form/submit', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      formId:     'RrGC4bSP8qDZihXCJXux',
-      locationId: 'nUjkIBVb6uLt3t9q9L7q',
-      name:       data.firstName + ' ' + data.lastName,
-      email:      data.email,
-      phone:      data.phone,
-    })
-  }).catch(()=>{});
 }
 </script>
 
