@@ -266,6 +266,15 @@ const bar    = document.getElementById('stickyBar');
 window.addEventListener('scroll',()=>{
   bar.classList.toggle('show', anchor.getBoundingClientRect().bottom < 0);
 },{passive:true});
+
+// ── Fix tel: links inside GHL iframe (Safari iOS blocks tel: in iframes) ──
+document.querySelectorAll('.btn-call').forEach(function(btn){
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    try{ window.top.location.href = PHONE_TEL; }
+    catch(err){ window.location.href = PHONE_TEL; }
+  });
+});
 </script>
 </body>
 </html>
