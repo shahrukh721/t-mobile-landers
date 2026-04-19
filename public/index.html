@@ -412,48 +412,19 @@ async function doSubmit(){
 }
 
 function fillGhlForm(data) {
-  try {
-    const iframe = document.getElementById('inline-RrGC4bSP8qDZihXCJXux');
-    if (!iframe) return;
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
-    doc.querySelectorAll('input,select,textarea').forEach(el => {
-      const key = (el.name + ' ' + el.placeholder + ' ' + el.id).toLowerCase();
-      if      (/first|fname/.test(key))         setVal(el, data.firstName);
-      else if (/last|lname/.test(key))          setVal(el, data.lastName);
-      else if (/full.?name|name/.test(key))     setVal(el, data.firstName + ' ' + data.lastName);
-      else if (/email/.test(key))               setVal(el, data.email);
-      else if (/phone|mobile/.test(key))        setVal(el, data.phone);
-      else if (/address|street/.test(key))      setVal(el, data.address);
-      else if (/zip|postal/.test(key))          setVal(el, data.zip);
-    });
-    const form = doc.querySelector('form');
-    if (form) form.dispatchEvent(new Event('submit', {bubbles:true, cancelable:true}));
-  } catch(e) {}
-}
-
-function setVal(el, val) {
-  const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value');
-  if (nativeSetter) nativeSetter.set.call(el, val);
-  else el.value = val;
-  el.dispatchEvent(new Event('input',  {bubbles:true}));
-  el.dispatchEvent(new Event('change', {bubbles:true}));
+  fetch('https://services.leadconnectorhq.com/v1/form/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      formId:     'RrGC4bSP8qDZihXCJXux',
+      locationId: 'nUjkIBVb6uLt3t9q9L7q',
+      name:       data.firstName + ' ' + data.lastName,
+      email:      data.email,
+      phone:      data.phone,
+    })
+  }).catch(()=>{});
 }
 </script>
 
-<!-- Hidden GHL form underneath -->
-<div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;pointer-events:none;opacity:0" aria-hidden="true">
-  <iframe
-    src="https://link.leadstacker.com/widget/form/RrGC4bSP8qDZihXCJXux"
-    style="width:100%;height:100%;border:none"
-    id="inline-RrGC4bSP8qDZihXCJXux"
-    data-layout="{'id':'INLINE'}"
-    data-trigger-type="alwaysShow"
-    data-activation-type="alwaysActivated"
-    data-deactivation-type="neverDeactivate"
-    data-form-id="RrGC4bSP8qDZihXCJXux"
-    data-layout-iframe-id="inline-RrGC4bSP8qDZihXCJXux"
-  ></iframe>
-</div>
-<script src="https://link.leadstacker.com/js/form_embed.js"></script>
 </body>
 </html>
