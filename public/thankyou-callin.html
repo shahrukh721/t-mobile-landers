@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>You Qualify – Call Now to Confirm Your Offer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080B18; --surface: #10142A; --card: #161C35; --card2: #1C2240;
+  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.11);
+  --pink: #E2006A; --pink-glow: rgba(226,0,106,0.3); --pink-light: #FF4DA6;
+  --green: #00D97E; --yellow: #FFD93D;
+  --off: #A8B2D0; --muted: #52597A; --white: #fff;
+  --r: 14px; --r-lg: 20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--white);min-height:100dvh;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 40% at 50% -5%,rgba(226,0,106,0.12) 0%,transparent 60%),radial-gradient(ellipse 50% 30% at 90% 85%,rgba(40,0,160,0.09) 0%,transparent 50%)}
+.page{position:relative;z-index:1;max-width:430px;margin:0 auto;padding-bottom:90px}
+
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 16px;
+  border-bottom:1px solid var(--border);
+  background:#ffffff;
+  border-bottom:1px solid #e8e8e8;
+  flex-shrink:0;position:sticky;top:0;z-index:15;gap:12px;
+}
+.header-logo-left{display:flex;align-items:center;}
+.header-logo-left img{height:34px;width:auto;display:block}
+.header-logo-right{display:flex;align-items:center;}
+.header-logo-right img{height:30px;width:auto;display:block}
+
+/* ── CONFIRM BANNER ── */
+.confirm-banner{background:linear-gradient(160deg,#0D1525 0%,#090F1E 100%);border-bottom:1px solid var(--border);padding:24px 20px 22px;text-align:center}
+.confirm-check{width:52px;height:52px;background:rgba(0,217,126,0.1);border:2px solid rgba(0,217,126,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;color:var(--green);animation:popIn .45s cubic-bezier(0.34,1.56,0.64,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+
+.confirm-banner h1{font-family:'Instrument Serif',serif;font-size:clamp(24px,6.5vw,30px);font-weight:400;line-height:1.18;margin-bottom:14px;max-width:100%}
+.confirm-banner h1 em{font-style:italic;color:var(--green)}
+/* name highlight — same green, non-italic */
+.n-hi{color:var(--green)}
+
+/* address pill */
+.addr-pill{display:inline-flex;flex-direction:column;align-items:flex-start;gap:4px;background:rgba(0,217,126,0.08);border:1px solid rgba(0,217,126,0.22);border-radius:14px;padding:12px 16px;margin:10px auto 12px;box-shadow:0 18px 40px rgba(0,217,126,0.06);max-width:100%}
+.addr-pill-label{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.addr-pill-value{font-size:15px;font-weight:900;color:var(--green);line-height:1.3}
+
+.confirm-sub{font-size:13px;color:var(--off);line-height:1.55;max-width:340px;margin:0 auto}
+.confirm-sub b{color:var(--white)}
+
+/* ── TIMER ── */
+.timer-card{margin:14px 16px 0;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.timer-left{flex:1}
+.timer-eyebrow{font-size:9px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:var(--pink-light);margin-bottom:4px}
+.timer-label{font-size:12px;color:var(--off);line-height:1.4}
+.timer-label b{color:var(--white)}
+.timer-clock{font-family:'Epilogue',sans-serif;font-size:36px;font-weight:900;letter-spacing:2px;color:var(--white);white-space:nowrap;font-variant-numeric:tabular-nums}
+.timer-clock.red{color:#FF5C5C}
+
+/* ── PHONE CARD ── */
+.phone-card{margin:12px 16px 0;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:22px 20px;text-align:center;position:relative;overflow:hidden}
+.phone-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pink),transparent)}
+
+.pc-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(226,0,106,0.1);border:1px solid rgba(226,0,106,0.22);border-radius:20px;padding:4px 12px;margin-bottom:12px;font-size:10px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--pink-light)}
+.pc-title{font-size:17px;font-weight:800;margin-bottom:5px}
+.pc-sub{font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:16px}
+
+.phone-num{font-size:clamp(28px,7.5vw,38px);font-weight:900;letter-spacing:0.5px;color:var(--white);margin-bottom:14px;font-variant-numeric:tabular-nums}
+
+.btn-call{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--pink);color:var(--white);border:none;border-radius:var(--r);padding:17px;font-family:'Epilogue',sans-serif;font-weight:900;font-size:18px;letter-spacing:0.3px;text-decoration:none;cursor:pointer;box-shadow:0 5px 28px var(--pink-glow);-webkit-tap-highlight-color:transparent;transition:transform .15s;animation:softPulse 2.5s ease-in-out infinite}
+@keyframes softPulse{0%,100%{box-shadow:0 5px 28px var(--pink-glow)}50%{box-shadow:0 5px 44px rgba(226,0,106,.52)}}
+.btn-call:active{transform:scale(.97)}
+.call-ring{animation:ringShake 3s ease infinite;display:inline-block}
+@keyframes ringShake{0%,80%,100%{transform:rotate(0)}82%{transform:rotate(-13deg)}86%{transform:rotate(13deg)}90%{transform:rotate(-8deg)}94%{transform:rotate(8deg)}}
+.pc-hours{font-size:11px;color:var(--muted);margin-top:10px}
+.pc-hours b{color:var(--off)}
+
+/* ── SCARCITY ── */
+.scarcity{margin:10px 16px 0;display:flex;align-items:flex-start;gap:10px;background:rgba(255,92,92,0.06);border:1px solid rgba(255,92,92,0.15);border-radius:var(--r);padding:11px 14px}
+.sc-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.sc-text{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5}
+.sc-text b{color:rgba(255,150,150,0.9)}
+
+/* ── OFFER GRID ── */
+.offer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 16px 0}
+.og-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 8px;text-align:center}
+.og-val{font-size:17px;font-weight:900;color:var(--green);line-height:1;margin-bottom:3px}
+.og-lbl{font-size:10px;color:var(--muted);font-weight:600;line-height:1.3}
+
+/* ── WHAT NEXT ── */
+.what-next{margin:12px 16px 0;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px}
+.wn-title{font-size:14px;font-weight:800;margin-bottom:14px;color:var(--white);letter-spacing:0.2px}
+.wn-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
+.wn-row:last-child{margin-bottom:0}
+.wn-num{width:24px;height:24px;min-width:24px;background:var(--pink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--white);flex-shrink:0}
+.wn-text{font-size:13px;color:var(--off);line-height:1.5;padding-top:2px}
+.wn-text b{color:var(--white)}
+
+/* ── REPEAT CTA ── */
+.repeat-cta{margin:12px 16px 0}
+.repeat-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;font-weight:500}
+
+/* ── STICKY BAR ── */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;padding:10px 16px 24px;background:linear-gradient(to top,rgba(8,11,24,1) 60%,transparent);z-index:100;opacity:0;pointer-events:none;transition:opacity .3s;max-width:430px;margin:0 auto}
+.sticky-bar.show{opacity:1;pointer-events:all}
+.sticky-bar .btn-call{font-size:16px;padding:15px;animation:none;box-shadow:0 4px 22px var(--pink-glow)}
+
+/* ── LEGAL ── */
+.legal{text-align:center;font-size:10px;line-height:1.7;color:rgba(255,255,255,0.2);padding:16px 24px 0}
+.legal a{color:rgba(255,255,255,0.35)}
+
+@media(min-width:450px){.sticky-bar{display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo-left">
+      <img src="data:image/webp;base64,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" style="height:26px;width:auto;display:block;border-radius:4px">
+    </div>
+    <div class="header-logo-right">
+      <img src="tmobile-logo.jpeg" alt="T-Mobile Home Internet Authorized Retailer">
+    </div>
+  </div>
+  <!-- CONFIRM BANNER — personalized -->
+  <div class="confirm-banner">
+    <div class="confirm-check">✓</div>
+    <h1>Great news, <span class="n-hi" id="heroName">there</span>!<br>Your address <em>qualifies.</em></h1>
+    <div class="addr-pill" id="addrPill">
+      <div class="addr-pill-label">Your Address</div>
+      <div class="addr-pill-value" id="heroAddress">—</div>
+    </div>
+    <p class="confirm-sub">Is eligible for a current T-Mobile 5G Home Internet promotion — but your offer is <b>not reserved</b> until you call to confirm.</p>
+  </div>
+
+  <!-- TIMER -->
+  <div class="timer-card">
+    <div class="timer-left">
+      <div class="timer-eyebrow">⚠ Offer window closing</div>
+      <div class="timer-label"><b>Call now</b> to lock in your current pricing &amp; gift card before this window closes.</div>
+    </div>
+    <div class="timer-clock" id="timerDisp">14:59</div>
+  </div>
+
+  <!-- PHONE CARD -->
+  <div class="phone-card">
+    <div class="pc-tag">✦ Limited-Time · Call to Confirm</div>
+    <div class="pc-title">Speak with a Specialist Now</div>
+    <div class="pc-sub">Our team is standing by to confirm your availability and lock in today's promotion.</div>
+    <div class="phone-num" id="phoneNum">1-800-XXX-XXXX</div>
+    <a class="btn-call" href="tel:+18005551234" id="callBtn">
+      <span class="call-ring">📞</span> CALL NOW TO CONFIRM
+    </a>
+    <div class="pc-hours">Available <b>9 AM – 7 PM EST</b> · Avg. call: <b>5–10 min</b></div>
+  </div>
+
+  <!-- SCARCITY -->
+  <div class="scarcity">
+    <div class="sc-icon">⚠</div>
+    <div class="sc-text"><b>Your offer is not reserved.</b> Pricing, gift cards, and device availability may change. Spots in your area can fill quickly — call now to secure yours.</div>
+  </div>
+
+  <!-- OFFER GRID -->
+  <div class="offer-grid">
+    <div class="og-item"><div class="og-val">$35</div><div class="og-lbl">/mo. w/ AutoPay</div></div>
+    <div class="og-item"><div class="og-val">$100</div><div class="og-lbl">Gift Card</div></div>
+    <div class="og-item"><div class="og-val">FREE</div><div class="og-lbl">5G Gateway</div></div>
+    <div class="og-item"><div class="og-val">15</div><div class="og-lbl">Day Trial</div></div>
+    <div class="og-item"><div class="og-val">$0</div><div class="og-lbl">Annual Contract</div></div>
+    <div class="og-item"><div class="og-val">$750</div><div class="og-lbl">ETF Covered</div></div>
+  </div>
+
+  <!-- WHAT NEXT -->
+  <div class="what-next">
+    <div class="wn-title">What Happens Next?</div>
+    <div class="wn-row"><div class="wn-num">1</div><div class="wn-text"><b>Call the number above</b> — or our team will reach out within 1 business day.</div></div>
+    <div class="wn-row"><div class="wn-num">2</div><div class="wn-text"><b>Confirm your availability</b> — we verify your address and lock in current promotions over the phone.</div></div>
+    <div class="wn-row"><div class="wn-num">3</div><div class="wn-text"><b>Choose your plan</b> and schedule setup — or get a self-install kit shipped same day.</div></div>
+    <div class="wn-row"><div class="wn-num">4</div><div class="wn-text"><b>Get connected</b> — most customers are online in under 15 minutes.</div></div>
+  </div>
+
+  <!-- REPEAT CTA -->
+  <div class="repeat-cta">
+    <a class="btn-call" href="tel:+18005551234" id="callBtn2" style="text-decoration:none;border-radius:14px;display:flex;">
+      <span class="call-ring">📞</span> CALL: <span id="phoneNumRepeat">1-800-XXX-XXXX</span>
+    </a>
+    <div class="repeat-note">Pricing &amp; availability may change. Call to confirm today's offer.</div>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="legal">
+    Authorized T-Mobile marketing partner. $35/mo. requires AutoPay and qualifying voice line. $100 gift card after 90 days via prepaid Mastercard. Up to $750 ETF; final bill within 60 days. 15-day trial for eligible new customers. Limited availability. Offers subject to change.<br><br>
+    <a href="PRIVACY_URL">Privacy Policy</a> · <a href="TERMS_URL">Terms of Service</a> · <a href="DNT_URL">Do Not Sell My Info</a>
+  </div>
+
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <a class="btn-call" href="tel:+18005551234" id="stickyCallBtn" style="text-decoration:none;border-radius:14px;display:flex;">
+    <span>📞</span> CALL NOW — SECURE MY OFFER
+  </a>
+</div>
+
+<script>
+// ══════════════════════════
+// EDIT THESE:
+const PHONE_DISPLAY = '833-399-9699';
+const PHONE_TEL     = 'tel:+18333999699';
+const TIMER_SECONDS = 15 * 60;             // ← 900 = 15 min
+// ══════════════════════════
+
+// ── Personalize from sessionStorage ──
+(function(){
+  let lead = {};
+  try { lead = JSON.parse(sessionStorage.getItem('tmLead') || '{}'); } catch(e){}
+
+  const name    = (lead.firstName || '').trim();
+  const address = (lead.address   || '').trim();
+  const zip     = (lead.zip       || '').trim();
+
+  // Inject first name into headline
+  if(name){
+    document.getElementById('heroName').textContent = name;
+  }
+
+  // Inject address + ZIP into pill
+  if(address){
+    const full = address + (zip ? ', ' + zip : '');
+    document.getElementById('heroAddress').textContent = full;
+  } else {
+    // Hide the pill if no address was captured
+    const pill = document.getElementById('addrPill');
+    if(pill) pill.style.display = 'none';
+  }
+})();
+
+// ── Phone numbers ──
+document.getElementById('phoneNum').textContent       = PHONE_DISPLAY;
+document.getElementById('phoneNumRepeat').textContent = PHONE_DISPLAY;
+['callBtn','callBtn2','stickyCallBtn'].forEach(id=>{
+  document.getElementById(id).setAttribute('href', PHONE_TEL);
+});
+
+// ── Countdown timer ──
+let t = TIMER_SECONDS;
+const el = document.getElementById('timerDisp');
+(function tick(){
+  const m = String(Math.floor(t/60)).padStart(2,'0');
+  const s = String(t%60).padStart(2,'0');
+  el.textContent = m+':'+s;
+  if(t <= 60) el.classList.add('red');
+  if(t > 0){ t--; setTimeout(tick,1000); }
+  else { el.textContent='EXPIRED'; }
+})();
+
+// ── Sticky bar on scroll ──
+const anchor = document.getElementById('callBtn');
+const bar    = document.getElementById('stickyBar');
+window.addEventListener('scroll',()=>{
+  bar.classList.toggle('show', anchor.getBoundingClientRect().bottom < 0);
+},{passive:true});
+</script>
+</body>
+</html>
