@@ -79,7 +79,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
 /* URGENCY */
 .urgency-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px}
-.urgency-row::before{content:'⚡';font-size:12px}
+.urgency-row::before{content:'';display:none}
 
 /* FORM SHEET */
 .sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:100;align-items:flex-end;justify-content:center}
@@ -203,7 +203,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     </p>
 
     <div class="chips">
-      <div class="chip hi"><span class="ci">💲</span> $35/mo all-in</div>
+      <div class="chip hi" style="font-size:14px;padding:7px 14px;"><span class="ci">💲</span> $35/mo all-in</div>
       <div class="chip hi"><span class="ci">🎁</span> $100 back <span style="font-size:.8em;opacity:.8;font-weight:600;">via Virtual Prepaid Mastercard®</span></div>
       <div class="chip"><span class="ci">📦</span> Free 2-day shipping</div>
       <div class="chip"><span class="ci">🔄</span> 15-day test drive</div>
@@ -382,7 +382,9 @@ function goS2(){
 }
 
 document.getElementById('ph').addEventListener('input',function(){
-  let v=this.value.replace(/\D/g,'').substring(0,10);
+  let v=this.value.replace(/\D/g,'');
+  if(v.length===11&&v.charAt(0)==='1') v=v.substring(1);
+  v=v.substring(0,10);
   if(v.length>=7) v='('+v.slice(0,3)+') '+v.slice(3,6)+'-'+v.slice(6);
   else if(v.length>=4) v='('+v.slice(0,3)+') '+v.slice(3);
   else if(v.length>0) v='('+v;
