@@ -237,20 +237,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div class="sheet" id="sheet">
     <div class="sheet-handle"></div>
 
-    <!-- STEP 1: All Info -->
+    <!-- SINGLE STEP: Fields + Consent + Submit -->
     <div class="sheet-step on" id="ss1">
-      <div class="prog-track">
-        <div class="prog-seg now"></div><div class="prog-seg"></div>
-      </div>
-      <div class="prog-meta"><b>Step 1 of 2 — Your Details</b><span>~30 sec</span></div>
       <div class="st-title">Check Your Availability</div>
       <div class="st-sub">Enter your info to see if T-Mobile 5G Home Internet is available for you.</div>
 
       <div class="offer-recap">
-        <div class="or-head">✦ Your Offer Includes</div>
-        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet</span></div>
+        <div class="or-head">✦ Today's Offer Includes</div>
+        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet — as low as <strong>$35/mo</strong> with AutoPay &amp; voice line</span></div>
         <div class="or-item"><div class="or-check">✓</div><span><strong>$100</strong> Prepaid Mastercard Gift Card</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>15-Day Worry-Free Test Drive</span></div>
+        <div class="or-item"><div class="or-check">✓</div><span><strong>Free</strong> 5G Gateway · No Equipment Fee</span></div>
+        <div class="or-item"><div class="or-check">✓</div><span>No Annual Contract · 15-Day Trial</span></div>
         <div class="or-item"><div class="or-check">✓</div><span>Up to <strong>$750</strong> ETF Covered</span></div>
       </div>
 
@@ -288,36 +285,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
           <div class="ferr" id="zip-e">Valid ZIP.</div>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="goS2()">See My Offer →</button>
-      <div class="trust">
-        <div class="trust-i"><span>✓</span> Secure</div>
-        <div class="trust-i"><span>✓</span> No spam</div>
-        <div class="trust-i"><span>✓</span> Free to check</div>
-      </div>
-    </div>
-
-    <!-- STEP 3: Consent + Submit -->
-    <div class="sheet-step" id="ss3">
-      <div class="prog-track">
-        <div class="prog-seg done"></div><div class="prog-seg now"></div>
-      </div>
-      <div class="prog-meta"><b>Step 2 of 2 — Unlock Offer</b><span>Last step!</span></div>
-      <button class="btn-back" onclick="goStep(1)">← Back</button>
-      <div class="st-title">Confirm & Unlock</div>
-      <div class="st-sub">Review your offer and submit to see your personalized promotion.</div>
-      <div class="urg">
-        <span style="font-size:17px;flex-shrink:0">🕐</span>
-        <div class="urg-text">Pricing &amp; gift card eligibility <b>may change</b>. Submit now to secure your eligibility check.</div>
-      </div>
-      <!-- UPDATED final offer recap -->
-      <div class="offer-recap">
-        <div class="or-head">✦ Today's Offer Summary</div>
-        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet — as low as <strong>$35/mo</strong> with AutoPay &amp; voice line</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>$100</strong> Prepaid Mastercard Gift Card</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>Free</strong> 5G Gateway · No Equipment Fee</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>No Annual Contract · 15-Day Trial</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>Up to <strong>$750</strong> ETF Covered</span></div>
-      </div>
       <div class="consent">
         <label>
           <input type="checkbox" id="tcpa">
@@ -334,7 +301,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
       <button class="btn btn-primary" id="submitBtn" onclick="doSubmit()">🔓 Unlock My Offer Now</button>
       <div class="trust">
         <div class="trust-i"><span>✓</span> SSL Secured</div>
-        <div class="trust-i"><span>✓</span> No Contract</div>
+        <div class="trust-i"><span>✓</span> No spam</div>
         <div class="trust-i"><span>✓</span> Free to Check</div>
       </div>
     </div>
@@ -355,24 +322,6 @@ function goStep(n) { document.querySelectorAll('.sheet-step').forEach(s=>s.class
 
 function val(inputId,errId,testFn){ const el=document.getElementById(inputId); const ok=testFn(el.value); el.classList.toggle('err',!ok); document.getElementById(errId).classList.toggle('show',!ok); return ok; }
 
-function goS2(){
-  const f=val('fn','fn-e',v=>v.trim().length>0);
-  const l=val('ln','ln-e',v=>v.trim().length>0);
-  const p=val('ph','ph-e',v=>v.replace(/\D/g,'').length>=10);
-  const e=val('em','em-e',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
-  const a=val('streetaddress','saddr-e',v=>v.trim().length>3);
-  const z=val('zip','zip-e',v=>/^\d{5}$/.test(v.trim()));
-  if(!f||!l||!p||!e||!a||!z) return;
-  formData.firstName = document.getElementById('fn').value.trim();
-  formData.lastName  = document.getElementById('ln').value.trim();
-  formData.fullName  = formData.firstName + ' ' + formData.lastName;
-  formData.phone     = document.getElementById('ph').value.trim();
-  formData.email     = document.getElementById('em').value.trim();
-  formData.address   = document.getElementById('streetaddress').value.trim();
-  formData.zip       = document.getElementById('zip').value.trim();
-  goStep(3);
-}
-
 document.getElementById('ph').addEventListener('input',function(){
   let v=this.value.replace(/\D/g,'').substring(0,10);
   if(v.length>=7) v='('+v.slice(0,3)+') '+v.slice(3,6)+'-'+v.slice(6);
@@ -382,12 +331,27 @@ document.getElementById('ph').addEventListener('input',function(){
 });
 
 async function doSubmit(){
+  const f=val('fn','fn-e',v=>v.trim().length>0);
+  const l=val('ln','ln-e',v=>v.trim().length>0);
+  const p=val('ph','ph-e',v=>v.replace(/\D/g,'').length>=10);
+  const e=val('em','em-e',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
+  const a=val('streetaddress','saddr-e',v=>v.trim().length>3);
+  const z=val('zip','zip-e',v=>/^\d{5}$/.test(v.trim()));
+  if(!f||!l||!p||!e||!a||!z) return;
+
   const cb=document.getElementById('tcpa');
   if(!cb.checked){ const b=cb.closest('.consent'); b.style.border='1.5px solid rgba(255,92,92,0.7)'; setTimeout(()=>{b.style.border='';},2500); return; }
 
   document.getElementById('submitBtn').style.display='none';
   document.getElementById('loader').classList.add('on');
 
+  formData.firstName = document.getElementById('fn').value.trim();
+  formData.lastName  = document.getElementById('ln').value.trim();
+  formData.fullName  = formData.firstName + ' ' + formData.lastName;
+  formData.phone     = document.getElementById('ph').value.trim();
+  formData.email     = document.getElementById('em').value.trim();
+  formData.address   = document.getElementById('streetaddress').value.trim();
+  formData.zip       = document.getElementById('zip').value.trim();
   formData.timestamp   = new Date().toISOString();
   formData.tcpaConsent = true;
 
