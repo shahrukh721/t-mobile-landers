@@ -154,7 +154,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     <div class="pc-title">Speak with a Specialist Now</div>
     <div class="pc-sub">Our team is standing by to confirm your availability and lock in today's promotion.</div>
     <div class="phone-num" id="phoneNum">1-800-XXX-XXXX</div>
-    <a class="btn-call" href="tel:+18005551234" id="callBtn">
+    <a class="btn-call" href="tel:+18333999699" id="callBtn">
       <span class="call-ring">📞</span> CALL NOW TO CONFIRM
     </a>
     <div class="pc-hours">Available <b>9 AM – 7 PM EST</b> · Avg. call: <b>5–10 min</b></div>
@@ -187,7 +187,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
   <!-- REPEAT CTA -->
   <div class="repeat-cta">
-    <a class="btn-call" href="tel:+18005551234" id="callBtn2" style="text-decoration:none;border-radius:14px;display:flex;">
+    <a class="btn-call" href="tel:+18333999699" id="callBtn2" style="text-decoration:none;border-radius:14px;display:flex;">
       <span class="call-ring">📞</span> CALL: <span id="phoneNumRepeat">1-800-XXX-XXXX</span>
     </a>
     <div class="repeat-note">Pricing &amp; availability may change. Call to confirm today's offer.</div>
@@ -203,7 +203,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
 <!-- STICKY BAR -->
 <div class="sticky-bar" id="stickyBar">
-  <a class="btn-call" href="tel:+18005551234" id="stickyCallBtn" style="text-decoration:none;border-radius:14px;display:flex;">
+  <a class="btn-call" href="tel:+18333999699" id="stickyCallBtn" style="text-decoration:none;border-radius:14px;display:flex;">
     <span>📞</span> CALL NOW — SECURE MY OFFER
   </a>
 </div>
@@ -268,11 +268,15 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 // ── Fix tel: links inside GHL iframe (Safari iOS blocks tel: in iframes) ──
+var inIframe = (function(){ try{ return window.self !== window.top; } catch(e){ return true; } })();
 document.querySelectorAll('.btn-call').forEach(function(btn){
   btn.addEventListener('click',function(e){
-    e.preventDefault();
-    try{ window.top.location.href = PHONE_TEL; }
-    catch(err){ window.location.href = PHONE_TEL; }
+    if(inIframe){
+      e.preventDefault();
+      try{ window.top.location.href = PHONE_TEL; }
+      catch(err){ window.location.href = PHONE_TEL; }
+    }
+    // else: let native href="tel:..." handle it on Safari/Chrome
   });
 });
 </script>
