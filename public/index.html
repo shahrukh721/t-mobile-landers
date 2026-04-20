@@ -413,7 +413,7 @@ body::before {
   line-height: 1.35;
 }
 .form-card-header p { font-size: .85rem; color: var(--muted); line-height: 1.55; }
-.form-body { padding: 20px 24px 24px; display: block; overflow: visible; touch-action: pan-y pinch-zoom; }
+.form-body { padding: 20px 24px 24px; }
 .form-field {
   display: flex; align-items: center; gap: 10px;
   border: 1.5px solid rgba(0,0,0,.07);
@@ -2054,7 +2054,7 @@ footer {
               <p class="form-etf-sub">Plus up to <strong>$750</strong> in Early Termination Fees covered</p>
             </div>
 
-            <form class="form-body" id="heroFormEl" onsubmit="handleHeroForm(event)">
+            <div class="form-body">
               <!-- Progressive form: step indicator (mobile only) -->
               <div class="form-progress" style="display:none;" id="formProgress">
                 <div class="form-progress-dot active" id="fpDot1"></div>
@@ -2091,7 +2091,7 @@ footer {
                 <label for="consent-hero">By submitting this form, you agree to be contacted by phone, text, and email regarding home internet offers. Consent is not a condition of purchase. Terms, rates, taxes, fees, eligibility, and availability vary. <a href="https://unlimited5ghomeinternet.com/privacy-policy-is" target="_blank" rel="noopener">Privacy Policy</a> &middot; <a href="https://unlimited5ghomeinternet.com/terms-of-services" target="_blank" rel="noopener">Terms</a></label>
               </div>
 
-              <button type="submit" class="btn-form-cta" id="heroFormCta">Check Availability &rsaquo;</button>
+              <button class="btn-form-cta" id="heroFormCta" onclick="handleHeroForm()">Check Availability &rsaquo;</button>
 
               <!-- Post-CTA trust strip: 15 Day Trial | Easy Setup | Instant Approval -->
               <div class="form-post-cta-badges">
@@ -2113,7 +2113,7 @@ footer {
 
               <!-- Microcopy: visible on mobile -->
               <div class="form-micro" style="display:none;">Availability varies by address</div>
-            </form>
+            </div>
 
             <div class="form-card-trust">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
@@ -2863,8 +2863,7 @@ function toggleFaq(btn) {
 let formStep = 1;
 const isMobile = () => window.innerWidth <= 640;
 
-function handleHeroForm(event) {
-  if (event) event.preventDefault();
+function handleHeroForm() {
   if (isMobile() && formStep === 1) {
     // Validate step 1
     const zip = document.getElementById('lead-zip')?.value?.trim();
@@ -2964,6 +2963,20 @@ function goToQuiz(sourceName, sourceAddress, sourceZip, sourceEmail, sourcePhone
   const firstName = parts[0] || '';
   const lastName  = parts.slice(1).join(' ') || '';
 
+  // Fire GHL tracking: fill + submit the hidden shadow form so external-tracking.js
+  // records this as a form opt-in in GHL stats.
+  (function() {
+    const sf = document.getElementById('ghl-shadow-form');
+    if (!sf) return;
+    const set = (n, v) => { const el = sf.querySelector('[name="' + n + '"]'); if (el) el.value = v || ''; };
+    set('name',        (firstName + ' ' + lastName).trim());
+    set('email',       email);
+    set('phone',       phone);
+    set('address1',    addr);
+    set('postal_code', zip);
+    sf.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+  })();
+
   // POST lead to Lead Connector CRM — also calls backend.leadconnectorhq.com/forms/submit
   // server-side to record the form opt-in in GHL stats (no webhook cost).
   fetch('https://t-mobile-landers.vercel.app/api/submit-contact', {
@@ -3009,6 +3022,17 @@ function submitFooterForm() {
 }
 </script>
 
+
+<!-- Hidden form — invisible to users, exists only so GHL's external-tracking.js
+     can intercept the submit event and record a form opt-in in GHL stats.
+     It is never displayed and never posted to any server. -->
+<form id="ghl-shadow-form" style="display:none!important;" onsubmit="return false;" aria-hidden="true">
+  <input type="text"  name="name"         autocomplete="off">
+  <input type="email" name="email"        autocomplete="off">
+  <input type="tel"   name="phone"        autocomplete="off">
+  <input type="text"  name="address1"     autocomplete="off">
+  <input type="text"  name="postal_code"  autocomplete="off">
+</form>
 
 <!-- GHL external form tracking — records page views and form opt-ins in GHL stats -->
 <script
