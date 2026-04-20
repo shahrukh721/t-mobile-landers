@@ -413,7 +413,7 @@ body::before {
   line-height: 1.35;
 }
 .form-card-header p { font-size: .85rem; color: var(--muted); line-height: 1.55; }
-.form-body { padding: 20px 24px 24px; }
+.form-body { padding: 20px 24px 24px; display: block; overflow: visible; touch-action: pan-y pinch-zoom; }
 .form-field {
   display: flex; align-items: center; gap: 10px;
   border: 1.5px solid rgba(0,0,0,.07);
@@ -2088,7 +2088,7 @@ footer {
               <!-- COMPLIANCE: TCPA consent — this language MUST be reviewed by legal before launch -->
               <div class="form-consent form-step-2">
                 <input type="checkbox" id="consent-hero" name="consent">
-                <label for="consent-hero">By submitting this form, you agree to be contacted by phone, text, and email regarding home internet offers. Consent is not a condition of purchase. Terms, rates, taxes, fees, eligibility, and availability vary. <a href="#">Privacy Policy</a> &middot; <a href="#">Terms</a></label>
+                <label for="consent-hero">By submitting this form, you agree to be contacted by phone, text, and email regarding home internet offers. Consent is not a condition of purchase. Terms, rates, taxes, fees, eligibility, and availability vary. <a href="https://unlimited5ghomeinternet.com/privacy-policy-is" target="_blank" rel="noopener">Privacy Policy</a> &middot; <a href="https://unlimited5ghomeinternet.com/terms-of-services" target="_blank" rel="noopener">Terms</a></label>
               </div>
 
               <button type="submit" class="btn-form-cta" id="heroFormCta">Check Availability &rsaquo;</button>
@@ -2653,7 +2653,7 @@ footer {
           <!-- COMPLIANCE: TCPA consent — must be reviewed before launch -->
           <div class="form-consent" style="margin-bottom:14px;">
             <input type="checkbox" id="consent-footer">
-            <label for="consent-footer">By submitting, you agree to be contacted regarding home internet offers. Consent is not required for purchase. <a href="#">Privacy</a> &middot; <a href="#">Terms</a></label>
+            <label for="consent-footer">By submitting, you agree to be contacted regarding home internet offers. Consent is not required for purchase. <a href="https://unlimited5ghomeinternet.com/privacy-policy-is" target="_blank" rel="noopener">Privacy</a> &middot; <a href="https://unlimited5ghomeinternet.com/terms-of-services" target="_blank" rel="noopener">Terms</a></label>
           </div>
           <button class="btn-form-cta" onclick="submitFooterForm()">Check Availability &rsaquo;</button>
           <div style="text-align:center; margin-top:10px; font-size:.73rem; color:var(--muted);">
@@ -2681,10 +2681,9 @@ footer {
       <!-- Legal col -->
       <div class="footer-col">
         <h4>Legal</h4>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="https://unlimited5ghomeinternet.com/privacy-policy-is" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="https://unlimited5ghomeinternet.com/terms-of-services" target="_blank" rel="noopener">Terms of Service</a>
         <a href="#">Messaging Terms</a>
-        <a href="#">Do Not Sell or Share My Info</a>
         <a href="#">Contact Us</a>
       </div>
 
@@ -2722,6 +2721,14 @@ footer {
         <div class="footer-badge"><span>🔒</span> Secure &amp; Encrypted</div>
         <div class="footer-badge"><span>🏪</span> Authorized Retailer</div>
       </div>
+    </div>
+
+    <!-- CA Do Not Sell -->
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07);">
+      <label style="display:inline-flex;align-items:center;gap:8px;font-size:.72rem;color:rgba(255,255,255,.45);cursor:pointer;">
+        <input type="checkbox" id="doNotSell" name="do_not_sell" style="width:13px;height:13px;accent-color:var(--accent);cursor:pointer;">
+        Do not sell my data <span style="opacity:.7;">(CA residents only)</span>
+      </label>
     </div>
   </div>
 </footer>
