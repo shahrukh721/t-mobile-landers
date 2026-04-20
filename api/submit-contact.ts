@@ -79,20 +79,31 @@ export default async function handler(req: any, res: any) {
     const data = await ghlRes.json();
     const contactId = data?.contact?.id;
 
-    if (formId) {
+    if (formId && process.env.GHL_LOCATION_ID) {
       try {
-        await fetch('https://services.leadconnectorhq.com/v1/form/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            formId,
-            locationId: process.env.GHL_LOCATION_ID,
-            name:  `${firstName} ${lastName}`,
-            email,
-            phone: normalizedPhone,
-          }),
+        const formBody = new URLSearchParams();
+        formBody.set('location_id', process.env.GHL_LOCATION_ID);
+        formBody.set('id',          formId);
+        if (firstName)       formBody.set('first_name',  firstName);
+        if (lastName)        formBody.set('last_name',   lastName);
+        if (email)           formBody.set('email',       email);
+        if (normalizedPhone) formBody.set('phone',       normalizedPhone);
+        if (address)         formBody.set('address1',    address);
+        if (zip)             formBody.set('postal_code', zip);
+
+        // backend.leadconnectorhq.com/forms/submit is the same endpoint
+        // GHL's own iframe form uses — server-side call has no CORS issue
+        // and no per-call cost (this is NOT a workflow action/webhook).
+        const formRes = await fetch('https://backend.leadconnectorhq.com/forms/submit', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body:    formBody.toString(),
         });
-      } catch (e) { console.error('form submit:', e); }
+
+        if (!formRes.ok) {
+          console.error('GHL form submit failed:', formRes.status, await formRes.text().catch(() => ''));
+        }
+      } catch (e) { console.error('GHL form submit error:', e); }
     }
 
     return res.status(200).json({ ok: true, contactId });

@@ -2,380 +2,3013 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>T-Mobile 5G Home Internet – Check Availability</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Collins Mobile — T-Mobile 5G Home Internet | Check Availability</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
 <style>
+/* ================================================================
+   BRAND TOKENS — T-Mobile Reseller (Authorized Retailer)
+   NOTE: Magenta used sparingly as accent only. Primary palette
+   is dark navy / charcoal to avoid implying official T-Mobile
+   corporate branding.
+   ================================================================ */
 :root {
-  --bg: #080B18; --surface: #10142A; --card: #161C35;
-  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.11);
-  --pink: #E2006A; --pink-glow: rgba(226,0,106,0.28); --pink-light: #FF4DA6;
-  --green: #00D97E; --yellow: #FFD93D;
-  --off: #A8B2D0; --muted: #52597A; --white: #fff;
-  --r: 14px; --r-lg: 20px;
+  /* Magenta accent — used sparingly for CTAs, highlights, urgency */
+  --accent:         #E20074;
+  --accent-dark:    #B8005D;
+  --accent-light:   #fdf0f6;
+  --accent-glow:    rgba(226,0,116,.16);
+
+  /* Primary palette — dark navy / charcoal */
+  --headline:       #0d1b2a;
+  --body:           #3a4556;
+  --muted:          #7a8a9e;
+  --border:         #e2e8f0;
+  --card-bg:        #ffffff;
+  --page-bg:        #f5f7fa;
+  --nav-bg:         rgba(255,255,255,.95);
+
+  /* Dark section palette */
+  --dark-bg:        #0d1b2a;
+  --dark-surface:   #152238;
+  --dark-muted:     rgba(255,255,255,.55);
+
+  --font-display:   'Sora', sans-serif;
+  --font-body:      'DM Sans', sans-serif;
+
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+
+  --shadow-sm:   0 2px 8px rgba(0,0,0,.05);
+  --shadow-md:   0 8px 40px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.03);
+  --shadow-btn:  0 6px 24px rgba(226,0,116,.25);
+  --shadow-card: 0 8px 48px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.03);
+  --shadow-elevated: 0 20px 60px rgba(0,0,0,.10), 0 4px 16px rgba(0,0,0,.04);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{background:var(--bg)}
-html,body{min-height:100%;height:auto;font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 100% 45% at 50% -5%,rgba(226,0,106,0.13) 0%,transparent 65%),radial-gradient(ellipse 60% 35% at 95% 90%,rgba(40,0,160,0.10) 0%,transparent 55%)}
-.shell{position:relative;z-index:1;max-width:430px;margin:0 auto;display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 
-/* TICKER */
-.ticker-wrap{background:var(--pink);overflow:hidden;white-space:nowrap;padding:7px 0;font-size:11px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#fff;position:relative;z-index:20;flex-shrink:0}
-.ticker-track{display:inline-flex;animation:ticker 18s linear infinite}
-.ticker-track span{padding:0 28px}
-.ticker-track span::before{content:'✦';margin-right:10px;opacity:0.7}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ================================================================
+   RESET
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); background: var(--page-bg); color: var(--body); overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overscroll-behavior-y: none; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
-.header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 16px;
-  border-bottom:1px solid var(--border);
-  background:#ffffff;
-  border-bottom:1px solid #e8e8e8;
-  flex-shrink:0;position:sticky;top:0;z-index:15;gap:12px;
+/* ================================================================
+   UTILITY
+   ================================================================ */
+.container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.container--narrow { width: 100%; max-width: 780px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 100px 0; }
+.section--tight { padding: 48px 0; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  font-family: var(--font-display);
+  font-weight: 600; font-size: .75rem;
+  padding: 6px 14px;
+  border-radius: 99px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
 }
-.header-logo-left{display:flex;align-items:center;}
-.header-logo-left img{height:34px;width:auto;display:block}
-.header-logo-right{display:flex;align-items:center;}
-.header-logo-right img{height:30px;width:auto;display:block}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--headline);
+  line-height: 1.15;
+  margin-bottom: 14px;
+  letter-spacing: -.02em;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 560px;
+}
+.text-accent { color: var(--accent); }
+.text-center { text-align: center; }
+.check { color: var(--accent); font-size: .85rem; margin-right: 6px; }
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), #ff4da6, var(--accent-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* HERO */
-.hero{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 20px 0;text-align:center;position:relative}
-.gateway-wrap{position:relative;width:140px;flex-shrink:0;margin:0 auto 6px}
-.gateway-glow{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);width:130px;height:24px;background:radial-gradient(ellipse,rgba(226,0,106,0.4) 0%,transparent 70%);filter:blur(10px)}
-.gateway-img{width:100%;display:block;position:relative;z-index:2;filter:drop-shadow(0 20px 50px rgba(226,0,106,0.28)) drop-shadow(0 0 80px rgba(40,0,160,0.18));animation:floatImg 4s ease-in-out infinite}
-@keyframes floatImg{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* ================================================================
+   BACKGROUND — subtle network / connectivity texture
+   ================================================================ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -15%, rgba(226,0,116,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 50%, rgba(59,130,246,.05) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 5% 80%, rgba(226,0,116,.03) 0%, transparent 55%);
+  background-color: var(--page-bg);
+  animation: glowDrift 14s ease-in-out infinite;
+}
+@keyframes glowDrift {
+  0%,100% { transform: scale(1) translateY(0); }
+  50%      { transform: scale(1.03) translateY(-8px); }
+}
 
-.eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(226,0,106,0.1);border:1px solid rgba(226,0,106,0.25);border-radius:20px;padding:5px 13px;margin-bottom:8px;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--pink-light)}
-.eyebrow-dot{width:6px;height:6px;background:var(--pink);border-radius:50%;animation:blink 1.6s ease infinite;flex-shrink:0}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+/* ================================================================
+   NAVBAR
+   ================================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,.97);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  height: 68px;
+  display: flex; align-items: center;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 4px 24px rgba(0,0,0,.04);
+}
+.nav-inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+}
 
-.headline{font-family:'Instrument Serif',serif;font-size:clamp(22px,5.5vw,26px);font-weight:400;line-height:1.15;color:#fff;margin-bottom:6px;max-width:300px}
-.headline em{font-style:italic;color:var(--pink-light)}
+/* ——— Logo ——— */
+.logo {
+  display: flex; align-items: center; gap: 11px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(145deg, var(--dark-bg) 0%, #1a2f4a 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 800; font-size: .9rem;
+  font-family: var(--font-display);
+  box-shadow: 0 2px 12px rgba(13,27,42,.22);
+  flex-shrink: 0; position: relative; overflow: hidden;
+  letter-spacing: -.01em;
+}
+.logo-mark::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), #ff6bae);
+}
+.logo-text { display: flex; flex-direction: column; gap: 1px; }
+.logo-name {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1rem;
+  color: var(--headline); line-height: 1;
+  letter-spacing: -.01em;
+}
+.logo-sub {
+  font-size: .6rem; font-weight: 600;
+  color: var(--accent);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
 
-.subhead{font-size:12px;color:var(--off);line-height:1.5;max-width:300px;margin:0 auto 10px}
-.subhead b{color:#fff}
+/* ——— Nav center trust pill ——— */
+.nav-trust-pill {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .76rem; font-weight: 600;
+  color: var(--muted);
+  background: var(--page-bg);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 7px 16px;
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+.nav-trust-pill svg { color: var(--accent); flex-shrink: 0; }
+.nav-trust-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e; flex-shrink: 0;
+}
 
-/* CHIPS */
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:10px;max-width:360px}
-.chip{display:flex;align-items:center;gap:5px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--off);white-space:nowrap}
-.chip .ci{font-size:13px}
-.chip.hi{background:rgba(226,0,106,0.1);border-color:rgba(226,0,106,0.25);color:#fff}
+/* ——— Right side ——— */
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-phone {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .84rem; font-weight: 600;
+  color: var(--body);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  padding: 8px 16px;
+  transition: border-color .2s, color .2s;
+  white-space: nowrap;
+}
+.nav-phone:hover { border-color: var(--accent); color: var(--accent); }
+.nav-phone svg { color: var(--accent); flex-shrink: 0; }
+.btn-nav {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .84rem;
+  border: none; border-radius: 99px;
+  padding: 11px 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(226,0,116,.28);
+  transition: transform .15s, box-shadow .2s;
+  white-space: nowrap;
+  position: relative; overflow: hidden;
+}
+.btn-nav::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.btn-nav:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(226,0,116,.38); }
+.nav-logo-img { height: 32px; width: auto; }
+.nav-retailer-badge { height: 36px; width: auto; display: none; }
 
-/* CTA */
-.cta-block{width:100%;max-width:360px;margin-bottom:10px}
-.btn-check{width:100%;background:var(--pink);border:none;border-radius:var(--r);padding:17px;font-family:'Epilogue',sans-serif;font-weight:900;font-size:18px;color:#fff;cursor:pointer;letter-spacing:0.3px;box-shadow:0 6px 30px var(--pink-glow);transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
-.btn-check::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 50%,rgba(255,255,255,0.08));pointer-events:none}
-.btn-check:active{transform:scale(.97);box-shadow:0 3px 14px var(--pink-glow)}
-.cta-sub{text-align:center;font-size:11px;color:var(--muted);margin-top:7px;font-weight:600}
+/* ================================================================
+   HERO — dark navy with magenta accents
+   ================================================================ */
+.hero {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, var(--dark-bg) 0%, #101d30 50%, var(--dark-surface) 100%);
+}
+/* Network-inspired grid texture */
+.hero-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+/* Decorative glows */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -140px; right: -100px;
+  width: 550px; height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226,0,116,.10) 0%, transparent 65%);
+  animation: heroFloat 8s ease-in-out infinite;
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -120px;
+  width: 450px; height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,130,246,.08) 0%, transparent 65%);
+  animation: heroFloat 10s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15px, -20px) scale(1.05); }
+}
+.hero-inner { padding: 72px 0 80px; position: relative; z-index: 1; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 56px;
+  align-items: start;
+}
 
-/* SOCIAL PROOF */
-.social-proof{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 12px;width:100%;max-width:360px;margin-bottom:8px}
-.stars{display:flex;gap:2px;flex-shrink:0}
-.star{font-size:13px;color:#FFA94D}
-.sp-text{font-size:11px;line-height:1.4;color:var(--off)}
-.sp-text b{color:#fff}
+/* Urgency bar */
+.urgency-bar {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(226,0,116,.12);
+  border: 1px solid rgba(226,0,116,.3);
+  color: rgba(255,255,255,.88);
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .75rem;
+  padding: 7px 16px;
+  border-radius: 99px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  animation: urgencyPulse 3s ease-in-out infinite;
+}
+.urgency-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,.7);
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+@keyframes urgencyPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(226,0,116,.15); }
+  50% { box-shadow: 0 0 0 8px rgba(226,0,116,0); }
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
 
-/* URGENCY */
-.urgency-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px}
-.urgency-row::before{content:'⚡';font-size:12px}
+.hero-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 22px;
+  letter-spacing: -.03em;
+}
+.hero-headline .price-pop {
+  color: #ff4da6;
+  position: relative;
+}
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--dark-muted);
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-weight: 400;
+  max-width: 500px;
+}
+.hero-bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.hero-bullet {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .88rem; color: rgba(255,255,255,.78);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+.bullet-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(226,0,116,.12);
+  border: 1px solid rgba(226,0,116,.25);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: .6rem; color: var(--accent);
+  font-weight: 700;
+}
+.hero-trust {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.hero-trust-item {
+  display: flex; align-items: center; gap: 9px;
+  font-size: .8rem; font-weight: 600;
+  color: rgba(255,255,255,.7);
+}
+.hero-trust-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .88rem;
+  flex-shrink: 0;
+}
 
-/* FORM SHEET */
-.sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:100;align-items:flex-end;justify-content:center}
-.sheet-overlay.open{display:flex}
-.sheet{background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:20px 20px 40px;width:100%;max-width:430px;animation:sheetUp .32s cubic-bezier(0.34,1.06,0.64,1);max-height:92vh;overflow-y:auto}
-@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sheet-handle{width:38px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
+/* ——— HERO FORM CARD ——— */
+.hero-form-card {
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-elevated), 0 0 60px rgba(226,0,116,.08);
+  border: 1px solid rgba(255,255,255,.1);
+  overflow: hidden;
+  position: sticky;
+  top: 82px;
+}
+.hero-form-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--r-xl) + 2px);
+  background: linear-gradient(135deg, rgba(226,0,116,.1), rgba(59,130,246,.06), rgba(226,0,116,.08));
+  z-index: -1;
+  filter: blur(20px);
+  opacity: .5;
+}
+.form-card-header {
+  padding: 24px 26px 20px;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  background: linear-gradient(180deg, rgba(226,0,116,.02) 0%, transparent 100%);
+}
+.form-card-header h3 {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--headline);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+.form-card-header p { font-size: .85rem; color: var(--muted); line-height: 1.55; }
+.form-body { padding: 20px 24px 24px; }
+.form-field {
+  display: flex; align-items: center; gap: 10px;
+  border: 1.5px solid rgba(0,0,0,.07);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-field:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(226,0,116,.06); }
+.form-field svg { color: var(--muted); flex-shrink: 0; }
+.form-field input {
+  border: none; outline: none; width: 100%;
+  font-family: var(--font-body);
+  font-size: .92rem; color: var(--headline);
+  background: transparent;
+}
+.form-field input::placeholder { color: #b0b8c4; }
+/* COMPLIANCE: TCPA consent language — review before launch */
+.form-consent {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: .73rem; color: var(--muted);
+  margin: 8px 0 14px;
+  line-height: 1.5;
+}
+.form-consent input { accent-color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.form-consent a { color: var(--accent); text-decoration: underline; }
+.btn-form-cta {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1rem;
+  border: none; border-radius: var(--r-md);
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform .15s, box-shadow .2s;
+  text-align: center;
+  letter-spacing: .01em;
+  position: relative;
+  overflow: hidden;
+}
+.btn-form-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.btn-form-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(226,0,116,.35); }
+.form-card-trust {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 13px 16px;
+  border-top: 1px solid rgba(0,0,0,.04);
+  font-size: .74rem; color: var(--muted);
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.01));
+}
+.form-card-trust svg { flex-shrink: 0; }
 
-.prog-track{display:flex;gap:5px;margin-bottom:6px}
-.prog-seg{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);transition:background .4s}
-.prog-seg.done{background:var(--green)}
-.prog-seg.now{background:var(--pink)}
-.prog-meta{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:18px}
-.prog-meta b{color:#fff}
+/* ETF sub-header in form card */
+.form-etf-sub {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  color: var(--accent);
+  font-weight: 600;
+  display: block;
+  margin-top: 2px;
+}
+.form-etf-sub strong {
+  font-weight: 800;
+  font-size: .92rem;
+}
 
-.sheet-step{display:none;animation:fadeUp .28s ease}
-.sheet-step.on{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* Post-CTA trust badges row */
+.form-post-cta-badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 12px;
+  padding: 10px 0 0;
+}
+.form-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--body);
+}
+.form-badge-item svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.form-badge-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 12px;
+  flex-shrink: 0;
+}
 
-.st-title{font-size:20px;font-weight:900;margin-bottom:3px}
-.st-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.4}
+/* ================================================================
+   TRUST MARKERS BAR (replaces partner logos)
+   ================================================================ */
+.logos-bar {
+  background: rgba(255,255,255,.7);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(0,0,0,.04);
+  border-bottom: 1px solid rgba(0,0,0,.04);
+  padding: 22px 0;
+}
+.logos-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px 36px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.logos-track::-webkit-scrollbar { display: none; }
+.trust-marker {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .78rem;
+  color: var(--muted);
+  letter-spacing: .02em;
+  transition: color .25s;
+}
+.trust-marker-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-light), #fce4ef);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+  flex-shrink: 0;
+}
+.trust-marker:hover { color: var(--accent); }
 
-.urg{display:flex;align-items:center;gap:9px;background:rgba(226,0,106,0.08);border:1px solid rgba(226,0,106,0.2);border-radius:11px;padding:10px 13px;margin-bottom:14px}
-.urg-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.4}
-.urg-text b{color:#ff80c0}
+/* ================================================================
+   STATS / BENEFITS BAR
+   ================================================================ */
+.stats-bar {
+  background: linear-gradient(180deg, #fff 0%, var(--page-bg) 100%);
+  padding: 48px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.stat-item {
+  padding: 36px 24px;
+  text-align: center;
+  position: relative;
+  transition: background .2s;
+}
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--border), transparent);
+}
+.stat-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-light), #fce4ef);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin: 0 auto 14px;
+}
+.stat-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: var(--headline);
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: .85rem;
+  color: var(--body);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.stat-sub { font-size: .76rem; color: var(--muted); margin-top: 4px; font-style: italic; }
 
-.field{margin-bottom:12px}
-.field label{display:block;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.field input{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 15px;font-size:16px;font-family:'Epilogue',sans-serif;color:#fff;outline:none;-webkit-appearance:none;transition:border-color .2s,background .2s}
-.field input::placeholder{color:rgba(255,255,255,0.2)}
-.field input:focus{border-color:var(--pink);background:rgba(226,0,106,0.05)}
-.field input.err{border-color:#ff5c5c}
-.ferr{font-size:11px;color:#ff7070;margin-top:4px;display:none}
-.ferr.show{display:block}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* ================================================================
+   HOW IT WORKS
+   ================================================================ */
+.how-it-works {
+  background: var(--page-bg);
+  position: relative;
+}
+.how-it-works::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 56px;
+}
+.steps-container::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 12.5%; right: 12.5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(226,0,116,.15) 100%);
+  z-index: 0;
+}
+.step-item { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+.step-number {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--dark-bg), var(--dark-surface));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 22px;
+  box-shadow: 0 6px 24px rgba(13,27,42,.2);
+  border: 3px solid #fff;
+  transition: transform .2s;
+  position: relative;
+}
+/* Magenta ring on first step */
+.step-number.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  box-shadow: 0 6px 24px rgba(226,0,116,.3);
+}
+.step-item:hover .step-number { transform: scale(1.08); }
+.step-number.inactive {
+  background: #fff;
+  color: var(--muted);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.step-name {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .95rem;
+  color: var(--headline);
+  margin-bottom: 8px;
+}
+.step-desc { font-size: .85rem; color: var(--muted); line-height: 1.55; }
 
-/* offer recap — updated copy */
-.offer-recap{background:rgba(0,217,126,0.07);border:1px solid rgba(0,217,126,0.18);border-radius:13px;padding:13px 14px;margin-bottom:14px}
-.or-head{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);margin-bottom:9px}
-.or-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:7px;line-height:1.4}
-.or-item:last-child{margin-bottom:0}
-.or-check{width:16px;height:16px;min-width:16px;background:rgba(0,217,126,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--green);font-weight:900;margin-top:1px;flex-shrink:0}
+/* Feature block below steps */
+.how-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 72px;
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  position: relative;
+}
+.how-feature::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #ff6bae, var(--accent-dark));
+}
+.how-feature-content { padding: 52px; }
+.how-feature-content h3 {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1.65rem;
+  color: var(--headline);
+  margin-bottom: 16px;
+  line-height: 1.25;
+  letter-spacing: -.01em;
+}
+.how-feature-content p { font-size: .95rem; color: var(--body); line-height: 1.7; margin-bottom: 14px; }
+.feature-checks { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.feature-check {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .92rem; color: var(--body);
+}
+.feature-check-icon {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-light), #fce4ef);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; flex-shrink: 0; margin-top: 1px;
+  font-weight: 700;
+}
+.btn-feature {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .9rem;
+  border: none; border-radius: var(--r-md);
+  padding: 14px 28px;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  margin-top: 28px;
+  transition: transform .15s, box-shadow .2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-feature::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.btn-feature:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(226,0,116,.35); }
+.how-feature-visual {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e4eaf0 50%, #dce2ea 100%);
+  min-height: 380px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.how-feature-visual::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226,0,116,.08) 0%, transparent 70%);
+  top: 20%; right: 10%;
+  animation: heroFloat 8s ease-in-out infinite;
+}
+/* Network / signal mockup */
+.mock-signal {
+  width: 82%;
+  background: #fff;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+  transform: perspective(600px) rotateY(-2deg) rotateX(1deg);
+  transition: transform .3s;
+}
+.how-feature:hover .mock-signal {
+  transform: perspective(600px) rotateY(0deg) rotateX(0deg);
+}
+.mock-signal-header {
+  display: flex; align-items: center; gap: 7px;
+  padding: 12px 16px;
+  background: var(--dark-bg);
+  border-bottom: 2px solid var(--accent);
+}
+.mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mock-dot.red { background: #ff5f57; }
+.mock-dot.yellow { background: #febc2e; }
+.mock-dot.green { background: #28c840; }
+.mock-signal-body { padding: 20px; }
+.mock-bar {
+  height: 10px; border-radius: 99px;
+  background: var(--border);
+  margin-bottom: 10px;
+}
+.mock-bar.accent { background: linear-gradient(90deg, var(--accent), var(--accent-dark)); width: 72%; }
+.mock-bar.short  { width: 40%; }
+.mock-bar.medium { width: 80%; background: #edf0f4; }
+.mock-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.mock-block {
+  height: 44px; border-radius: var(--r-sm);
+  background: linear-gradient(135deg, var(--accent-light), #fce4ef);
+  flex: 1;
+}
+.mock-block.tall { height: 64px; }
+.mock-block.signal { background: linear-gradient(135deg, rgba(226,0,116,.10), rgba(226,0,116,.05)); }
 
-.consent{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:12px;margin:12px 0}
-.consent label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-.consent input[type=checkbox]{width:20px;height:20px;min-width:20px;accent-color:var(--pink);margin-top:1px}
-.consent-copy{font-size:10.5px;line-height:1.6;color:rgba(255,255,255,0.38)}
-.consent-copy a{color:rgba(255,255,255,0.58);text-decoration:underline}
+/* ================================================================
+   SOCIAL PROOF / WHY PEOPLE SWITCH
+   ================================================================ */
+.big-stat {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.big-stat::before {
+  content: '';
+  position: absolute;
+  top: -150px; left: -150px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226,0,116,.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.big-stat-inner {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: 80px;
+  align-items: center;
+}
+/* Signal strength icons instead of avatars */
+.signal-icons {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.signal-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.signal-icon {
+  width: 56px; height: 56px; border-radius: var(--r-md);
+  background: linear-gradient(135deg, #f0f4f8, #e8edf2);
+  border: 2px solid #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,.05);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  transition: transform .2s;
+}
+.signal-icon:hover { transform: scale(1.1) translateY(-2px); }
 
-.btn{width:100%;border:none;border-radius:13px;padding:16px;font-family:'Epilogue',sans-serif;font-weight:900;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;-webkit-tap-highlight-color:transparent}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:var(--pink);color:#fff;box-shadow:0 6px 28px var(--pink-glow)}
-.btn-back{background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:0 0 12px;display:flex;align-items:center;gap:4px;font-family:'Epilogue',sans-serif}
+.big-stat-content { text-align: center; }
+.big-stat-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--headline);
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -.02em;
+}
+.big-stat-body {
+  font-size: .95rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+/* Testimonial carousel */
+.carousel {
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-card);
+  padding: 32px 36px;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.carousel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #ff6bae);
+}
+.carousel-quote-mark {
+  position: absolute;
+  top: 14px; left: 24px;
+  font-size: 4.5rem; line-height: 1;
+  color: rgba(226,0,116,.06);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  pointer-events: none;
+}
+.carousel-text {
+  font-size: 1rem;
+  color: var(--headline);
+  line-height: 1.65;
+  font-style: italic;
+  position: relative; z-index: 1;
+  min-height: 72px;
+}
+.carousel-author {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 22px;
+}
+.carousel-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-light), #fce4ef);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  border: 2px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(226,0,116,.12);
+}
+.carousel-name { font-weight: 700; font-size: .9rem; color: var(--headline); }
+.carousel-role { font-size: .8rem; color: var(--muted); }
+.carousel-nav {
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  margin-top: 18px;
+}
+.carousel-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,.08);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: .9rem; color: var(--body);
+  transition: all .2s;
+}
+.carousel-btn:hover { border-color: var(--accent); background: var(--accent-light); color: var(--accent); transform: scale(1.05); }
 
-.trust{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px}
-.trust-i{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--muted)}
-.trust-i span{color:var(--green)}
+/* ================================================================
+   SERVICES / DIFFERENTIATORS
+   ================================================================ */
+.services {
+  background: linear-gradient(180deg, var(--page-bg) 0%, #eff2f6 50%, var(--page-bg) 100%);
+  position: relative;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+.service-card {
+  background: var(--card-bg);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 32px 28px;
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-4px);
+}
+.service-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: linear-gradient(135deg, #f0f4f8, #e8edf2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 18px;
+}
+.service-title {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.02rem;
+  color: var(--headline);
+  margin-bottom: 10px;
+}
+.service-desc { font-size: .87rem; color: var(--body); line-height: 1.6; margin-bottom: 16px; }
+.service-checks { display: flex; flex-direction: column; gap: 7px; }
+.service-check { display: flex; align-items: flex-start; gap: 7px; font-size: .83rem; color: var(--muted); }
 
-.loading{display:none;flex-direction:column;align-items:center;gap:14px;padding:30px 0;text-align:center}
-.loading.on{display:flex}
-.spin{width:40px;height:40px;border:3px solid rgba(226,0,106,0.15);border-top-color:var(--pink);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.load-t{font-size:18px;font-weight:800}
-.load-s{font-size:13px;color:var(--muted)}
+/* ================================================================
+   DARK FEATURE SECTION (GLOBAL / REACH replacement)
+   ================================================================ */
+.dark-feature { position: relative; overflow: hidden; }
+.dark-feature-inner {
+  background: linear-gradient(135deg, var(--dark-bg) 0%, #152540 50%, var(--dark-surface) 100%);
+  border-radius: var(--r-xl);
+  padding: 80px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Network grid inside dark section */
+.dark-feature-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(226,0,116,.08) 0%, transparent 60%),
+    linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+  background-size: 100% 100%, 50px 50px, 50px 50px;
+}
+.dark-feature-inner::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(226,0,116,.06) 0%, transparent 70%);
+  top: -80px; right: -80px;
+  animation: heroFloat 10s ease-in-out infinite;
+}
+.dark-tag { background: rgba(226,0,116,.15); color: #ff6bae; border: 1px solid rgba(226,0,116,.25); }
+.dark-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #fff;
+  line-height: 1.15;
+  margin: 18px 0;
+  letter-spacing: -.02em;
+}
+.dark-body { font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+.dark-feature .btn-form-cta {
+  max-width: 280px; margin: 0 auto;
+  background: linear-gradient(135deg, var(--accent), #ff4da6);
+  box-shadow: 0 8px 32px rgba(226,0,116,.35);
+}
+.dark-support-labels {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: 16px 32px;
+  margin-top: 32px;
+}
+.dark-support-label {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .82rem; font-weight: 600;
+  color: rgba(255,255,255,.4);
+}
+.dark-support-label .check-sm { color: var(--accent); font-size: .75rem; }
 
-.legal-strip{text-align:center;font-size:10px;line-height:1.7;color:rgba(255,255,255,0.2);padding:10px 20px 20px;flex-shrink:0}
-.legal-strip a{color:rgba(255,255,255,0.35)}
+/* ================================================================
+   FAQ SECTION (replaces reviews grid)
+   ================================================================ */
+.faq {
+  background: linear-gradient(180deg, #fff 0%, var(--page-bg) 100%);
+  position: relative;
+}
+.faq-header { margin-bottom: 48px; }
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-item {
+  background: var(--card-bg);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow .25s;
+}
+.faq-item:hover { box-shadow: var(--shadow-card); }
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 20px 24px;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .9rem;
+  color: var(--headline);
+  cursor: pointer;
+  transition: color .2s;
+  user-select: none;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.faq-question:hover { color: var(--accent); }
+.faq-toggle {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; color: var(--accent);
+  flex-shrink: 0;
+  transition: transform .25s, background .2s;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--accent); color: #fff; }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1), padding .35s;
+  padding: 0 24px;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 24px 20px;
+}
+.faq-answer p {
+  font-size: .87rem;
+  color: var(--body);
+  line-height: 1.65;
+}
+
+/* ================================================================
+   FINAL CTA SECTION
+   ================================================================ */
+.footer-cta {
+  background: var(--page-bg);
+  padding: 80px 0;
+  position: relative;
+}
+.footer-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.footer-cta-inner {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 64px;
+  align-items: center;
+}
+.footer-cta h2 {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--headline);
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -.02em;
+}
+.footer-cta p { font-size: .97rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+.footer-cta-card {
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-elevated);
+  overflow: hidden;
+  position: relative;
+}
+.footer-cta-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: calc(var(--r-xl) + 1px);
+  background: linear-gradient(135deg, rgba(226,0,116,.08), transparent, rgba(226,0,116,.06));
+  z-index: -1;
+  filter: blur(16px);
+  opacity: .5;
+}
+.footer-cta-card-head {
+  background: linear-gradient(135deg, var(--dark-bg), var(--dark-surface));
+  padding: 22px 24px;
+  text-align: center;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1.02rem;
+  position: relative;
+  overflow: hidden;
+}
+.footer-cta-card-head::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #ff6bae);
+}
+.footer-cta-card-body { padding: 22px 24px 26px; }
+.footer-trust-badge {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(226,0,116,.04);
+  border: 1px solid rgba(226,0,116,.08);
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  font-size: .78rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer {
+  background: linear-gradient(180deg, var(--dark-bg) 0%, #070f1a 100%);
+  color: rgba(255,255,255,.6);
+  padding: 56px 0 28px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  margin-bottom: 24px;
+}
+.footer-brand .logo { color: #fff; }
+.footer-brand .logo-mark { background: rgba(226,0,116,.15); border: 1px solid rgba(226,0,116,.25); }
+.footer-brand .logo-mark::after { background: var(--accent); }
+.footer-brand p { font-size: .85rem; line-height: 1.7; margin-top: 14px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .8rem;
+  color: rgba(255,255,255,.85);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-size: .85rem; color: rgba(255,255,255,.45);
+  margin-bottom: 10px;
+  transition: color .2s;
+}
+.footer-col a:hover { color: var(--accent); }
+.footer-contact p { font-size: .85rem; margin-bottom: 8px; }
+.footer-contact strong { color: rgba(255,255,255,.85); font-weight: 600; }
+
+/* Disclaimer block */
+/* COMPLIANCE: This entire disclaimer section must be reviewed by legal before launch */
+.footer-disclaimer {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: var(--r-md);
+  padding: 20px 24px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  font-size: .75rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.35);
+}
+.footer-disclaimer p { margin-bottom: 8px; }
+.footer-disclaimer p:last-child { margin-bottom: 0; }
+
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  font-size: .8rem;
+}
+.footer-badges { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-badge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .78rem; color: rgba(255,255,255,.4);
+}
+
+/* ================================================================
+   SUCCESS MODAL
+   ================================================================ */
+.success-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.success-modal.open { display: flex; }
+.success-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(13,27,42,.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: backdropIn .25s ease forwards;
+}
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+.success-modal-card {
+  position: relative; z-index: 1;
+  background: var(--card-bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-elevated), 0 0 60px rgba(226,0,116,.12);
+  padding: 44px 40px 36px;
+  max-width: 480px; width: 100%;
+  text-align: center;
+  animation: modalIn .35s cubic-bezier(.22,1,.36,1) forwards;
+  border-top: 4px solid var(--accent);
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.success-modal-icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.success-modal-title {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1.45rem;
+  color: var(--headline);
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.success-modal-title .name-highlight { color: var(--accent); }
+.success-modal-sub {
+  font-size: .9rem; color: var(--muted);
+  line-height: 1.6; margin-bottom: 14px;
+}
+.success-modal-address-box {
+  background: var(--accent-light);
+  border: 1.5px solid rgba(226,0,116,.2);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .95rem;
+  color: var(--headline);
+  margin-bottom: 18px;
+  text-align: left;
+  display: flex; align-items: center; gap: 10px;
+}
+.success-modal-address-box svg { color: var(--accent); flex-shrink: 0; }
+.success-modal-next {
+  font-size: .84rem; color: var(--muted);
+  line-height: 1.65; margin-bottom: 22px;
+}
+.success-modal-badges {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin-bottom: 24px;
+}
+.success-modal-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .72rem; font-weight: 600; color: var(--muted);
+  background: var(--page-bg);
+  border: 1px solid var(--border);
+  border-radius: 99px; padding: 5px 12px;
+}
+.success-modal-close {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: .95rem;
+  border: none; border-radius: var(--r-md);
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  transition: transform .15s, box-shadow .2s;
+}
+.success-modal-close:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(226,0,116,.35); }
+@media (max-width: 640px) {
+  .success-modal-card { padding: 28px 20px 24px; border-radius: var(--r-lg); }
+  .success-modal-title { font-size: 1.2rem; }
+}
+
+/* ================================================================
+   STICKY MOBILE CTA
+   ================================================================ */
+.sticky-mobile {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: 300;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0,0,0,.06);
+  padding: 12px 20px 20px;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.08);
+}
+.sticky-mobile-btn {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700; font-size: 1rem;
+  border: none; border-radius: var(--r-md);
+  padding: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  text-align: center;
+}
+.sticky-mobile-sub {
+  text-align: center;
+  font-size: .73rem;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+/* ================================================================
+   SCROLL ANIMATIONS
+   ================================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); will-change: auto; }
+.fade-up.delay-1 { transition-delay: .1s; }
+.fade-up.delay-2 { transition-delay: .2s; }
+.fade-up.delay-3 { transition-delay: .3s; }
+.fade-up.delay-4 { transition-delay: .4s; }
+.fade-up.delay-5 { transition-delay: .5s; }
+.scale-in {
+  opacity: 0;
+  transform: scale(.95);
+  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.scale-in.visible { opacity: 1; transform: scale(1); will-change: auto; }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-inner { padding: 48px 0 56px; }
+  .hero-form-card { position: static; max-width: 520px; margin: 28px auto 0; }
+  .big-stat-inner { grid-template-columns: 1fr; gap: 40px; }
+  .signal-icons { flex-direction: row; flex-wrap: wrap; }
+  .footer-cta-inner { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2)::after { display: none; }
+  .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-item:nth-child(4) { border-top: 1px solid var(--border); }
+  .stat-item:nth-child(4)::after { display: none; }
+  .steps-container::before { display: none; }
+  .steps-container { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .how-feature { grid-template-columns: 1fr; }
+  .how-feature-visual { min-height: 240px; }
+  .how-feature-content { padding: 36px; }
+  .dark-feature-inner { padding: 56px 32px; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+/* ================================================================
+   TABLET (641px – 960px) — smooth mid-range layout
+   ================================================================ */
+@media (min-width: 641px) and (max-width: 960px) {
+  .section { padding: 72px 0; }
+  .section--tight { padding: 36px 0; }
+  .container { padding: 0 20px; }
+  .dark-feature-inner { padding: 56px 40px; }
+  .how-feature-content { padding: 40px; }
+  .big-stat-inner { gap: 48px; }
+  .nav-phone { display: none; }
+  .section-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+  .nav-trust-center { display: none; }
+}
+
+@media (max-width: 640px) {
+  /* ================================================================
+     MOBILE CONVERSION OPTIMIZATION v2
+     Philosophy: headline → form → proof → depth.
+     Form visible above fold. Every scroll = trust + action.
+     ================================================================ */
+
+  /* --- BASE --- */
+  .section { padding: 36px 0; }
+  .container { padding: 0 16px; }
+  body { padding-bottom: 92px; }
+
+  /* --- NAV: compact mobile --- */
+  .nav { height: 52px; }
+  .nav-phone { display: none; }
+  .btn-nav { font-size: .78rem; padding: 9px 16px; }
+  .nav-trust-center { display: none; }
+  .logo-mark { width: 30px; height: 30px; font-size: .78rem; border-radius: 8px; }
+  .logo-name { font-size: .88rem; }
+  .logo-sub { font-size: .52rem; }
+
+  /* ============================================================
+     HERO — offer-first mobile layout
+     Order: urgency strip → headline → sub → value bullets → FORM
+     Strongest economic props above fold. Trust moved down/removed.
+     ============================================================ */
+  .hero-inner { padding: 0; }
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .hero-grid > div:first-child { order: 1; }
+  .hero-grid > #heroForm { order: 2; }
+
+  /* --- Urgency: slim full-width strip, not a pill button --- */
+  .urgency-bar {
+    display: flex;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: 14px;
+    padding: 6px 16px;
+    border-radius: 0;
+    border: none;
+    background: rgba(226,0,116,.1);
+    border-bottom: 1px solid rgba(226,0,116,.18);
+    font-size: .65rem;
+    justify-content: center;
+    animation: none; /* kill pulse — keep it calm */
+    box-shadow: none;
+  }
+
+  /* --- Headline: 2-line max, strong spacing --- */
+  .hero-headline {
+    font-size: clamp(1.5rem, 6vw, 1.95rem);
+    margin-bottom: 8px;
+    line-height: 1.18; /* slightly more air between lines */
+    letter-spacing: -.02em;
+    word-spacing: .02em;
+  }
+  .hero-headline br { display: none; }
+
+  /* --- Sub-headline: short offer reinforcement, not "check if you qualify" --- */
+  .hero-sub {
+    display: block;
+    font-size: .82rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    color: rgba(255,255,255,.6);
+  }
+
+  /* --- Bullets: 2-column value-prop grid --- */
+  .hero-bullets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .hero-bullet {
+    font-size: .73rem;
+    gap: 5px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 8px;
+    padding: 7px 9px;
+    align-items: center;
+    line-height: 1.25;
+  }
+  .bullet-dot {
+    width: 15px; height: 15px;
+    font-size: .45rem;
+    flex-shrink: 0;
+  }
+  .hero-bullet strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* --- Trust bar: HIDE on mobile — clutter above fold --- */
+  .hero-trust { display: none !important; }
+
+  /* ============================================================
+     HERO FORM — visible above fold, progressive 2-step
+     ============================================================ */
+  #heroForm { margin-top: 10px; }
+  .hero-form-card {
+    border-radius: var(--r-md);
+    box-shadow: 0 8px 32px rgba(0,0,0,.15);
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .form-card-header {
+    padding: 10px 14px 8px;
+  }
+  .form-card-header h3 { font-size: .85rem; margin-bottom: 0; }
+  .form-card-header p { font-size: .68rem; display: none; }
+  .form-body { padding: 10px 14px 14px; }
+
+  /* Progressive form: step 1 fields (ZIP + name) visible, rest collapsed */
+  .form-field.form-step-2 {
+    display: none;
+    animation: formExpand .3s ease forwards;
+  }
+  .form-field.form-step-2.active { display: flex; }
+  @keyframes formExpand {
+    from { opacity: 0; max-height: 0; margin-bottom: 0; transform: translateY(-4px); }
+    to   { opacity: 1; max-height: 60px; margin-bottom: 8px; transform: translateY(0); }
+  }
+
+  .form-field {
+    padding: 13px 12px;
+    margin-bottom: 7px;
+    border-radius: 10px;
+  }
+  .form-field input { font-size: 16px; } /* exactly 16px prevents iOS zoom */
+  .form-consent {
+    font-size: .65rem;
+    margin: 4px 0 10px;
+    line-height: 1.45;
+  }
+  .form-consent.form-step-2 { display: none; }
+  .form-consent.form-step-2.active { display: flex; }
+
+  .btn-form-cta {
+    padding: 16px;
+    font-size: 1.02rem;
+    border-radius: 10px;
+  }
+  .form-micro {
+    display: block !important;
+    text-align: center;
+    font-size: .68rem;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .form-card-trust {
+    font-size: .64rem;
+    padding: 8px 12px;
+  }
+  /* ETF sub-header on mobile */
+  .form-card-header p.form-etf-sub {
+    display: block;
+    font-size: .74rem;
+    margin-top: 2px;
+  }
+  .form-etf-sub strong { font-size: .82rem; }
+  /* Post-CTA badges on mobile */
+  .form-post-cta-badges { margin-top: 10px; padding-top: 8px; }
+  .form-badge-item { font-size: .65rem; gap: 3px; }
+  .form-badge-item svg { width: 12px; height: 12px; }
+  .form-badge-divider { margin: 0 8px; height: 14px; }
+
+  /* Progress indicator for step form */
+  .form-progress {
+    display: flex !important;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .form-progress-dot {
+    height: 3px;
+    flex: 1;
+    border-radius: 99px;
+    background: var(--border);
+    transition: background .3s;
+  }
+  .form-progress-dot.active { background: var(--accent); }
+
+  /* --- TRUST BAR: compact horizontal, no scroll --- */
+  .logos-bar { padding: 10px 0; }
+  .logos-track {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 0 16px;
+    min-width: max-content;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .trust-marker { font-size: .66rem; white-space: nowrap; flex-shrink: 0; }
+  .trust-marker-icon { width: 20px; height: 20px; font-size: .55rem; }
+
+  /* --- MOBILE EARLY PROOF: right after trust bar --- */
+  .mobile-early-proof { display: block !important; padding: 14px 16px 0; }
+  .mobile-early-proof .carousel {
+    box-shadow: var(--shadow-sm);
+    padding: 16px;
+    border-radius: var(--r-md);
+  }
+  .mobile-early-proof .carousel::before { height: 2px; }
+  .mobile-early-proof .carousel-text { font-size: .82rem; min-height: 0; }
+  .mobile-early-proof .carousel-quote-mark { font-size: 2.5rem; top: 6px; left: 12px; }
+
+  /* --- STATS: inline 2x2 grid, not scroll --- */
+  .stats-bar { padding: 20px 0; }
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    overflow: visible;
+    gap: 8px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .stat-item {
+    min-width: 0;
+    padding: 16px 14px;
+    background: var(--card-bg);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-sm);
+    margin-right: 0;
+    flex-shrink: unset;
+  }
+  .stat-item:not(:last-child)::after { display: none; }
+  .stat-item:nth-child(3),
+  .stat-item:nth-child(4) { border-top: none; }
+  .stat-icon { width: 32px; height: 32px; font-size: .95rem; margin-bottom: 8px; }
+  .stat-headline { font-size: 1rem; }
+  .stat-label { font-size: .74rem; }
+  .stat-sub { font-size: .66rem; }
+
+  /* --- SECTION CTAs: every section ends with action --- */
+  .section-cta-mobile { display: block !important; }
+  .section-cta-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: .92rem;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow-btn);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .section-cta-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .section-cta-micro {
+    text-align: center;
+    font-size: .66rem;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  /* --- HOW IT WORKS: tight vertical timeline --- */
+  .how-it-works .text-center { text-align: left; }
+  .how-it-works .section-sub { display: none; } /* redundant with title */
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-left: 32px;
+    margin-top: 28px;
+  }
+  .steps-container::before {
+    display: block !important;
+    left: 13px !important; right: auto !important;
+    top: 0 !important; bottom: 0 !important;
+    width: 2px !important; height: auto !important;
+    background: linear-gradient(180deg, var(--accent), rgba(226,0,116,.08)) !important;
+  }
+  .step-item {
+    text-align: left;
+    padding: 0 0 20px 14px;
+  }
+  .step-number {
+    width: 28px; height: 28px;
+    font-size: .72rem;
+    margin: 0 0 6px;
+    position: absolute;
+    left: -28px; top: 0;
+    border-width: 2px;
+  }
+  .step-item .step-name,
+  .step-item .step-desc { padding-left: 6px; }
+  .step-name { font-size: .82rem; margin-bottom: 2px; }
+  .step-desc { font-size: .74rem; }
+
+  /* Feature block: compact */
+  .how-feature-visual { display: none; }
+  .how-feature { grid-template-columns: 1fr; border-radius: var(--r-md); margin-top: 20px; }
+  .how-feature::before { height: 2px; }
+  .how-feature-content { padding: 20px 16px; }
+  .how-feature-content .tag { margin-bottom: 12px !important; }
+  .how-feature-content h3 { font-size: 1.1rem; }
+  .how-feature-content p { font-size: .82rem; margin-bottom: 10px; }
+  .feature-checks { gap: 8px; margin-top: 14px; }
+  .feature-check { font-size: .82rem; }
+  .btn-feature {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 15px;
+    font-size: .92rem;
+    margin-top: 18px;
+  }
+
+  /* --- SOCIAL PROOF: compact, immediate --- */
+  .signal-icons { display: none !important; }
+  .big-stat-inner { grid-template-columns: 1fr; gap: 0; }
+  .big-stat-headline { font-size: clamp(1.35rem, 5.5vw, 1.75rem); }
+  .big-stat-body {
+    font-size: .82rem;
+    margin-bottom: 18px;
+    /* truncate for speed */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .carousel { padding: 16px; border-radius: var(--r-md); }
+  .carousel::before { height: 2px; }
+  .carousel-text { font-size: .85rem; min-height: 0; }
+  .carousel-quote-mark { font-size: 2.5rem; top: 6px; left: 10px; }
+  .carousel-author { margin-top: 14px; }
+  .carousel-avatar { width: 34px; height: 34px; font-size: .85rem; }
+  .carousel-name { font-size: .82rem; }
+  .carousel-role { font-size: .7rem; }
+  .carousel-nav { margin-top: 12px; }
+  .carousel-btn { width: 32px; height: 32px; font-size: .8rem; }
+
+  /* --- SERVICES: 2-col compact, hide descriptions --- */
+  .services .section-sub { display: none; }
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
+  .service-card { padding: 14px 12px; border-radius: 10px; }
+  .service-icon { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px; margin-bottom: 8px; }
+  .service-title { font-size: .82rem; margin-bottom: 4px; }
+  .service-desc { display: none; } /* hide verbose text, checks are enough */
+  .service-checks { gap: 3px; }
+  .service-check { font-size: .68rem; gap: 5px; }
+  .check { font-size: .72rem; margin-right: 3px; }
+
+  /* --- DARK FEATURE: punchy, tight --- */
+  .dark-feature-inner { padding: 32px 16px; border-radius: var(--r-md); }
+  .dark-feature-inner::before { background-size: 100% 100%, 40px 40px, 40px 40px; }
+  .dark-headline { font-size: clamp(1.25rem, 5vw, 1.6rem); margin: 12px 0; }
+  .dark-headline br { display: none; }
+  .dark-body { font-size: .82rem; margin-bottom: 20px; }
+  .dark-feature .btn-form-cta { max-width: 100%; font-size: .95rem; padding: 15px; }
+  .dark-support-labels { gap: 6px 14px; margin-top: 16px; }
+  .dark-support-label { font-size: .66rem; }
+
+  /* --- FAQ: tighter --- */
+  .faq-grid { grid-template-columns: 1fr; gap: 6px; }
+  .faq-question { padding: 14px 16px; font-size: .78rem; }
+  .faq-toggle { width: 20px; height: 20px; font-size: .65rem; }
+  .faq-item.open .faq-answer { padding: 0 16px 14px; }
+  .faq-answer p { font-size: .78rem; }
+
+  /* --- FOOTER CTA: hidden on mobile — hero form + sticky CTA are sufficient --- */
+  .footer-cta { display: none; }
+
+  /* --- FOOTER: ultra-compact mobile layout --- */
+  footer { padding: 20px 0 12px; }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-bottom: 14px;
+    margin-bottom: 10px;
+  }
+  /* Brand row spans full width as a header */
+  .footer-brand {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    margin-bottom: 10px;
+  }
+  .footer-brand p { display: none; }
+  .footer-brand .logo-name { font-size: .84rem; }
+  .footer-brand .logo-sub { font-size: .5rem; }
+  .footer-brand .logo-mark { width: 28px; height: 28px; font-size: .7rem; border-radius: 7px; }
+  /* Two link columns side by side */
+  .footer-col { padding-right: 6px; }
+  .footer-col h4 { font-size: .66rem; margin-bottom: 7px; }
+  .footer-col a { font-size: .7rem; margin-bottom: 5px; }
+  .footer-contact p { font-size: .7rem; margin-bottom: 4px; }
+  .footer-contact p:last-of-type { display: none; } /* hide mailing address — too long */
+  /* Disclaimer: show only first 2 paragraphs, smaller */
+  .footer-disclaimer {
+    padding: 9px 11px;
+    font-size: .56rem;
+    line-height: 1.5;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+  .footer-disclaimer p { margin-bottom: 3px; }
+  .footer-disclaimer p:nth-child(n+3) { display: none; }
+  .footer-bottom { font-size: .62rem; flex-direction: column; align-items: flex-start; gap: 5px; }
+  .footer-badges { gap: 10px; }
+  .footer-badge { font-size: .62rem; }
+
+  /* ============================================================
+     STICKY CTA — dual action: CTA + price anchor
+     ============================================================ */
+  .sticky-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    background: var(--dark-bg);
+    border-top: 2px solid var(--accent);
+    box-shadow: 0 -8px 32px rgba(0,0,0,.2);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .sticky-mobile-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px calc(env(safe-area-inset-bottom, 6px) + 10px);
+  }
+  .sticky-mobile-copy {
+    flex: 1;
+    min-width: 0;
+  }
+  .sticky-mobile-price {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .sticky-mobile-price span { color: var(--accent); }
+  .sticky-mobile-sub {
+    color: rgba(255,255,255,.45);
+    font-size: .62rem;
+    margin-top: 2px;
+  }
+  .sticky-mobile-btn {
+    flex-shrink: 0;
+    width: auto;
+    padding: 14px 22px;
+    font-size: .88rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(226,0,116,.35);
+    white-space: nowrap;
+  }
+
+  /* --- REMOVE stagger delays — instant render --- */
+  .fade-up.delay-1,
+  .fade-up.delay-2,
+  .fade-up.delay-3,
+  .fade-up.delay-4,
+  .fade-up.delay-5 { transition-delay: 0s; }
+  /* Faster animation on mobile */
+  .fade-up { transition-duration: .4s; }
+  .scale-in { transition-duration: .35s; }
+
+  /* --- SECTION TITLES: tighter, clear word spacing --- */
+  .section-title {
+    font-size: clamp(1.25rem, 5vw, 1.65rem);
+    margin-bottom: 8px;
+    word-spacing: .03em;
+    letter-spacing: -.015em;
+  }
+  .section-sub { font-size: .82rem; word-spacing: .01em; }
+  .tag { font-size: .64rem; padding: 4px 10px; letter-spacing: .04em; }
+
+  /* --- KILL decorative waste --- */
+  .hero-bg-grid { display: none; }
+  .hero::before, .hero::after { display: none; }
+  .big-stat::before { display: none; }
+  body::before { animation: none; }
+  .dark-feature-inner::after { animation: none; }
+}
+
+/* ================================================================
+   EXTRA SMALL (< 380px)
+   ================================================================ */
+@media (max-width: 380px) {
+  .hero-headline { font-size: 1.35rem; }
+  .hero-bullets { gap: 5px; }
+  .hero-bullet { font-size: .68rem; padding: 5px 7px; }
+  .hero-sub { font-size: .76rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .sticky-mobile-price { font-size: .95rem; }
+  .sticky-mobile-btn { padding: 12px 16px; font-size: .82rem; }
+}
 </style>
 </head>
 <body>
-<div class="shell">
 
-  <!-- TICKER -->
-  <div class="ticker-wrap">
-    <div class="ticker-track">
-      <span>Limited Time Offer</span>
-      <span>Availability Varies by Area — Check Now Before Spots Fill</span>
-      <span>$35/mo · $100 Gift Card · Free Gateway · No Contract</span>
-      <span>Limited Time Offer</span>
-      <span>Availability Varies by Area — Check Now Before Spots Fill</span>
-      <span>$35/mo · $100 Gift Card · Free Gateway · No Contract</span>
+<!-- ================================================================
+     NAVBAR
+     ================================================================ -->
+<nav class="nav">
+  <div class="container">
+    <div class="nav-inner">
+
+      <!-- Logo mark + brand -->
+      <a class="logo" href="#" onclick="return false;">
+        <div class="logo-mark">CM</div>
+        <div class="logo-text">
+          <span class="logo-name">Collins Mobile</span>
+          <span class="logo-sub">Authorized Retailer</span>
+        </div>
+      </a>
+
+      <!-- Center trust pill (hidden on small screens) -->
+      <div class="nav-trust-pill nav-trust-center">
+        <div class="nav-trust-dot"></div>
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        T-Mobile Authorized Retailer
+      </div>
+
+      <!-- Right: CTA -->
+      <div class="nav-right">
+        <button class="btn-nav" onclick="scrollToForm()">Check Availability &rsaquo;</button>
+      </div>
+
     </div>
   </div>
+</nav>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-logo-left">
-      <img src="data:image/webp;base64,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" style="height:26px;width:auto;display:block;border-radius:4px">
-    </div>
-    <div class="header-logo-right">
-      <img src="tmobile-logo.jpeg" alt="T-Mobile Home Internet Authorized Retailer">
-    </div>
-  </div>
-  <!-- HERO -->
-  <div class="hero">
+<!-- ================================================================
+     HERO — Dark navy with magenta accent
+     ================================================================ -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-grid">
 
-    <div class="gateway-wrap">
-      <div class="gateway-glow"></div>
-      <img class="gateway-img" src="data:image/webp;base64,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" alt="T-Mobile 5G Gateway">
-    </div>
-
-    <div class="eyebrow">
-      <div class="eyebrow-dot"></div>
-      Risk-Free · 15-Day Trial
-    </div>
-
-    <h1 class="headline">
-      Test Drive T-Mobile 5G<br>Home Internet <em>Risk-Free</em><br>for 15 Days
-    </h1>
-
-    <!-- UPDATED subhead -->
-    <p class="subhead">
-      Unlimited data. No long-term contracts. Free device&nbsp;+&nbsp;fast shipping.<br>
-      Just <b>$35/mo</b> with AutoPay and a voice line.<br>
-      See if your address qualifies in 30&nbsp;seconds.
-    </p>
-
-    <div class="chips">
-      <div class="chip hi"><span class="ci">💲</span> $35/mo all-in</div>
-      <div class="chip hi"><span class="ci">🎁</span> $100 gift card</div>
-      <div class="chip"><span class="ci">📦</span> Free 2-day shipping</div>
-      <div class="chip"><span class="ci">🔄</span> 15-day test drive</div>
-      <div class="chip"><span class="ci">📋</span> No contract</div>
-      <div class="chip"><span class="ci">📡</span> Free 5G gateway</div>
-    </div>
-
-    <div class="cta-block">
-      <button class="btn-check" onclick="openSheet()">🔍 Check Availability</button>
-      <div class="cta-sub"><span>Takes 30 seconds · No commitment required</span></div>
-    </div>
-
-    <div class="social-proof">
-      <div class="stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star" style="opacity:.5">★</span>
-      </div>
-      <div class="sp-text"><b>4.8/5</b> · Trusted by thousands of households switching to 5G home internet this month</div>
-    </div>
-
-    <div class="urgency-row">
-      Availability limited in some areas · Offers may change without notice
-    </div>
-
-  </div><!-- /hero -->
-
-  <div class="legal-strip">
-    $35/mo. requires AutoPay and a qualifying voice line · $100 gift card after 90 days · Limited availability · Offers subject to change · Authorized T-Mobile marketing partner<br>
-    <a href="PRIVACY_URL">Privacy Policy</a> · <a href="TERMS_URL">Terms</a> · <a href="DNT_URL">Do Not Sell My Info</a>
-  </div>
-
-</div><!-- /shell -->
-
-<!-- FORM BOTTOM SHEET -->
-<div class="sheet-overlay" id="sheetOverlay" onclick="maybeClose(event)">
-  <div class="sheet" id="sheet">
-    <div class="sheet-handle"></div>
-
-    <!-- SINGLE STEP: Fields + Consent + Submit -->
-    <div class="sheet-step on" id="ss1">
-      <div class="st-title">Check Your Availability</div>
-      <div class="st-sub">Enter your info to see if T-Mobile 5G Home Internet is available for you.</div>
-
-      <div class="offer-recap">
-        <div class="or-head">✦ Today's Offer Includes</div>
-        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet — as low as <strong>$35/mo</strong> with AutoPay &amp; voice line</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>$100</strong> Prepaid Mastercard Gift Card</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>Free</strong> 5G Gateway · No Equipment Fee</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>No Annual Contract · 15-Day Trial</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>Up to <strong>$750</strong> ETF Covered</span></div>
-      </div>
-
-      <div class="frow">
-        <div class="field">
-          <label>First Name</label>
-          <input type="text" id="fn" placeholder="Jane" autocomplete="given-name">
-          <div class="ferr" id="fn-e">Required.</div>
-        </div>
-        <div class="field">
-          <label>Last Name</label>
-          <input type="text" id="ln" placeholder="Smith" autocomplete="family-name">
-          <div class="ferr" id="ln-e">Required.</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Phone Number</label>
-        <input type="tel" id="ph" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel">
-        <div class="ferr" id="ph-e">Valid phone required.</div>
-      </div>
-      <div class="field">
-        <label>Email Address</label>
-        <input type="email" id="em" placeholder="jane@email.com" inputmode="email" autocomplete="email">
-        <div class="ferr" id="em-e">Valid email required.</div>
-      </div>
-      <div class="frow">
-        <div class="field">
-          <label>Street Address</label>
-          <input type="text" id="streetaddress" placeholder="123 Main Street" autocomplete="street-address">
-          <div class="ferr" id="saddr-e">Required.</div>
-        </div>
-        <div class="field">
-          <label>ZIP Code</label>
-          <input type="tel" id="zip" placeholder="90210" maxlength="5" inputmode="numeric">
-          <div class="ferr" id="zip-e">Valid ZIP.</div>
-        </div>
-      </div>
-      <div class="consent">
-        <label>
-          <input type="checkbox" id="tcpa">
-          <div class="consent-copy">
-            By checking this box and clicking below, I authorize T-Mobile (and its authorized marketing partners) to contact me using automated dialing, AI, pre-recorded voice, and text/SMS for marketing at the number and email provided, even if on a Do Not Call list. Consent not required for purchase. Msg &amp; data rates may apply. I agree to the <a href="TERMS_URL" target="_blank">Terms</a> and <a href="PRIVACY_URL" target="_blank">Privacy Policy</a>. Text STOP to opt out. <a href="DNT_URL" target="_blank">Do Not Sell My Info</a>.
+        <!-- LEFT: Copy -->
+        <div>
+          <!-- COMPLIANCE: Verify "Limited Time Offer" claim before launch -->
+          <div class="urgency-bar fade-up">
+            <div class="urgency-dot"></div>
+            Limited Time Offer — Ends Soon
           </div>
-        </label>
+
+          <!-- COMPLIANCE: $35/mo with qualifying voice line — verify current offer terms -->
+          <h1 class="hero-headline fade-up">T-Mobile 5G Home Internet<br>Just <span class="price-pop">$35/mo</span></h1>
+
+          <!-- Sub-copy: reinforces offer, not "check if you qualify" -->
+          <p class="hero-sub fade-up">Fast home internet. No annual contract. $0 upfront. Plus get $100 back <span style="font-size:.8em;opacity:.85;">via Virtual Prepaid Mastercard®</span> when you switch.</p>
+          <!-- COMPLIANCE: $0 upfront and $100 back claims must be verified against current authorized offer terms -->
+
+          <!-- Bullets: strongest economic value props in 2-col grid -->
+          <div class="hero-bullets">
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <!-- COMPLIANCE: Verify $0 due today claim -->
+              <span><strong>$0 due</strong> today</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <!-- COMPLIANCE: Verify $100 back promotion terms -->
+              <span><strong>$100</strong> back <span style="font-size:.78em;opacity:.82;font-weight:400;">via Virtual Prepaid Mastercard®</span></span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <span><strong>No</strong> annual contract</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <!-- COMPLIANCE: Verify 15-day test drive terms -->
+              <span><strong>15-day</strong> test drive</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <span><strong>Free</strong> 5G Wi-Fi device</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <span><strong>Free</strong> 2-day shipping</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <span><strong>Quick</strong> 15 min setup</span>
+            </div>
+            <div class="hero-bullet fade-up">
+              <div class="bullet-dot">✓</div>
+              <span><strong>Easy</strong> self-setup</span>
+            </div>
+          </div>
+
+          <!-- Trust bar — hidden on mobile, visible desktop -->
+          <div class="hero-trust fade-up">
+            <div class="hero-trust-item">
+              <div class="hero-trust-icon">🏪</div>
+              <span>Authorized Retailer<br>Support</span>
+            </div>
+            <div class="hero-trust-item">
+              <div class="hero-trust-icon">🔒</div>
+              <span>Secure Form<br>Submission</span>
+            </div>
+            <div class="hero-trust-item">
+              <div class="hero-trust-icon">📍</div>
+              <span>Availability Check<br>by Address</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form Card -->
+        <div id="heroForm">
+          <div class="hero-form-card scale-in">
+            <div class="form-card-header" style="text-align:center;">
+              <h3>Check Availability</h3>
+              <!-- COMPLIANCE: Verify $750 ETF coverage claim against current offer terms -->
+              <p class="form-etf-sub">Plus up to <strong>$750</strong> in Early Termination Fees covered</p>
+            </div>
+
+            <form class="form-body" id="heroFormEl" onsubmit="handleHeroForm(event)">
+              <!-- Progressive form: step indicator (mobile only) -->
+              <div class="form-progress" style="display:none;" id="formProgress">
+                <div class="form-progress-dot active" id="fpDot1"></div>
+                <div class="form-progress-dot" id="fpDot2"></div>
+              </div>
+
+              <!-- STEP 1: ZIP + Name (always visible) -->
+              <div class="form-field">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                <input type="text" id="lead-zip" name="postal_code" placeholder="ZIP Code" maxlength="10" inputmode="numeric">
+              </div>
+              <div class="form-field">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" id="lead-name" name="name" placeholder="Full Name">
+              </div>
+
+              <!-- STEP 2: Remaining fields (expand on mobile after "Continue") -->
+              <div class="form-field form-step-2">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="lead-email" name="email" placeholder="Email Address">
+              </div>
+              <div class="form-field form-step-2">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.09 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                <input type="tel" id="lead-phone" name="phone" placeholder="Phone Number">
+              </div>
+              <div class="form-field form-step-2">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <input type="text" id="lead-address" name="address1" placeholder="Street Address">
+              </div>
+
+              <!-- COMPLIANCE: TCPA consent — this language MUST be reviewed by legal before launch -->
+              <div class="form-consent form-step-2">
+                <input type="checkbox" id="consent-hero" name="consent">
+                <label for="consent-hero">By submitting this form, you agree to be contacted by phone, text, and email regarding home internet offers. Consent is not a condition of purchase. Terms, rates, taxes, fees, eligibility, and availability vary. <a href="#">Privacy Policy</a> &middot; <a href="#">Terms</a></label>
+              </div>
+
+              <button type="submit" class="btn-form-cta" id="heroFormCta">Check Availability &rsaquo;</button>
+
+              <!-- Post-CTA trust strip: 15 Day Trial | Easy Setup | Instant Approval -->
+              <div class="form-post-cta-badges">
+                <div class="form-badge-item">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                  <span>15 Day Trial</span>
+                </div>
+                <div class="form-badge-divider"></div>
+                <div class="form-badge-item">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  <span>Easy Setup</span>
+                </div>
+                <div class="form-badge-divider"></div>
+                <div class="form-badge-item">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <span>Instant Approval</span>
+                </div>
+              </div>
+
+              <!-- Microcopy: visible on mobile -->
+              <div class="form-micro" style="display:none;">Availability varies by address</div>
+            </form>
+
+            <div class="form-card-trust">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span>🔒 Secure &middot; Authorized Retailer</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="loading" id="loader">
-        <div class="spin"></div>
-        <div class="load-t">Checking Your Area…</div>
-        <div class="load-s">Verifying offer availability &amp; promotions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     MOBILE EARLY SOCIAL PROOF — shown only on mobile, right after hero
+     Moves trust signal higher in the scroll for mobile users.
+     ================================================================ -->
+<div class="mobile-early-proof" style="display:none; padding:20px 18px 0;">
+  <div class="carousel" style="margin:0 auto; max-width:480px;">
+    <div class="carousel-quote-mark">"</div>
+    <div class="carousel-text" style="font-style:italic; color:var(--headline); font-size:.88rem; line-height:1.6;">"I just wanted to know if it was available at my house. The process was simple and way less confusing than calling around."</div>
+    <div class="carousel-author" style="margin-top:14px;">
+      <div class="carousel-avatar" style="width:34px; height:34px; font-size:.85rem;">👩</div>
+      <div>
+        <div class="carousel-name" style="font-size:.82rem;">Melissa R.</div>
+        <div class="carousel-role" style="font-size:.72rem;">Home Internet Shopper</div>
       </div>
-      <button class="btn btn-primary" id="submitBtn" onclick="doSubmit()">🔓 Unlock My Offer Now</button>
-      <div class="trust">
-        <div class="trust-i"><span>✓</span> SSL Secured</div>
-        <div class="trust-i"><span>✓</span> No spam</div>
-        <div class="trust-i"><span>✓</span> Free to Check</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     TRUST MARKERS BAR
+     ================================================================ -->
+<div class="logos-bar">
+  <div class="container">
+    <div class="logos-track">
+      <div class="trust-marker">
+        <div class="trust-marker-icon">📍</div>
+        Address-Based Availability
+      </div>
+      <div class="trust-marker">
+        <div class="trust-marker-icon">🔒</div>
+        Secure Online Request
+      </div>
+      <div class="trust-marker">
+        <div class="trust-marker-icon">📋</div>
+        Guided Setup Support
+      </div>
+      <div class="trust-marker">
+        <div class="trust-marker-icon">🏪</div>
+        Authorized Retailer Assistance
+      </div>
+      <div class="trust-marker">
+        <div class="trust-marker-icon">⚡</div>
+        Fast Eligibility Review
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     STATS / BENEFITS BAR
+     ================================================================ -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid fade-up">
+
+      <div class="stat-item">
+        <div class="stat-icon">📄</div>
+        <div class="stat-headline">No Contract</div>
+        <div class="stat-label">No annual commitment required</div>
+        <!-- COMPLIANCE: Verify "no contract" applies to current T-Mobile Home Internet offer terms -->
+        <div class="stat-sub">service terms apply</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-headline">Easy Setup</div>
+        <div class="stat-label">Get connected quickly</div>
+        <div class="stat-sub">self-setup for many homes</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">🔄</div>
+        <!-- COMPLIANCE: "15-Day Test Drive" — verify current promotion details -->
+        <div class="stat-headline">15-Day Test Drive</div>
+        <div class="stat-label">Try it at your address</div>
+        <div class="stat-sub">for qualifying customers</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon">📍</div>
+        <div class="stat-headline">Address Based</div>
+        <div class="stat-label">Availability check required</div>
+        <div class="stat-sub">check before you switch</div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE SECTION CTA — after stats -->
+    <div class="section-cta-mobile" style="display:none;">
+      <button class="section-cta-btn" onclick="scrollToForm()">Check Availability &rsaquo;</button>
+      <div class="section-cta-micro">No commitment &middot; Takes 30 seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     HOW IT WORKS
+     ================================================================ -->
+<section class="section how-it-works">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="tag">How It Works</div>
+      <h2 class="section-title" style="margin-top:16px;">A Simple Way to See If<br><span class="gradient-text">T-Mobile 5G Home Internet</span> Fits</h2>
+      <p class="section-sub" style="margin:0 auto;">A simple way to see if T-Mobile 5G Home Internet is a fit for your home.</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step-item fade-up">
+        <div class="step-number active">1</div>
+        <div class="step-name">Enter Your Address</div>
+        <div class="step-desc">Tell us where service is needed.</div>
+      </div>
+      <div class="step-item fade-up delay-1">
+        <div class="step-number inactive">2</div>
+        <div class="step-name">Check Eligibility</div>
+        <div class="step-desc">We review availability and qualifying offers in your area.</div>
+      </div>
+      <div class="step-item fade-up delay-2">
+        <div class="step-number inactive">3</div>
+        <div class="step-name">Review Your Options</div>
+        <div class="step-desc">A specialist helps explain next steps, pricing, and setup.</div>
+      </div>
+      <div class="step-item fade-up delay-3">
+        <div class="step-number inactive">4</div>
+        <div class="step-name">Get Connected</div>
+        <div class="step-desc">Move forward with the option that fits your household best.</div>
       </div>
     </div>
 
-  </div><!-- /sheet -->
-</div><!-- /overlay -->
+    <!-- Feature block -->
+    <div class="how-feature scale-in">
+      <div class="how-feature-content">
+        <div class="tag" style="margin-bottom:18px;">Why This Step Matters</div>
+        <h3>Check Availability Before You Switch</h3>
+        <p>Not every address qualifies, and that's exactly why this first step matters. We help you quickly see whether T-Mobile 5G Home Internet may be available for your home before you waste time comparing plans that do not apply.</p>
+        <div class="feature-checks">
+          <div class="feature-check">
+            <div class="feature-check-icon">✓</div>
+            <span>Address-specific availability review</span>
+          </div>
+          <div class="feature-check">
+            <div class="feature-check-icon">✓</div>
+            <span>Simple next-step guidance</span>
+          </div>
+          <div class="feature-check">
+            <div class="feature-check-icon">✓</div>
+            <span>Specialist follow-up if you qualify</span>
+          </div>
+        </div>
+        <button class="btn-feature" onclick="scrollToForm()">See If You Qualify &rsaquo;</button>
+      </div>
+      <div class="how-feature-visual">
+        <div class="mock-signal">
+          <div class="mock-signal-header">
+            <div class="mock-dot red"></div>
+            <div class="mock-dot yellow"></div>
+            <div class="mock-dot green"></div>
+          </div>
+          <div class="mock-signal-body">
+            <div class="mock-bar accent"></div>
+            <div class="mock-bar medium"></div>
+            <div class="mock-row">
+              <div class="mock-block tall signal"></div>
+              <div class="mock-block tall"></div>
+            </div>
+            <div class="mock-bar short"></div>
+            <div class="mock-row">
+              <div class="mock-block"></div>
+              <div class="mock-block signal"></div>
+              <div class="mock-block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- MOBILE SECTION CTA — after How It Works -->
+    <div class="section-cta-mobile" style="display:none;">
+      <button class="section-cta-btn" onclick="scrollToForm()">See If You Qualify &rsaquo;</button>
+      <div class="section-cta-micro">Free address check &middot; No obligation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     WHY PEOPLE SWITCH + TESTIMONIAL CAROUSEL
+     ================================================================ -->
+<section class="section big-stat">
+  <div class="container">
+    <div class="big-stat-inner">
+
+      <!-- Signal/telecom icons -->
+      <div class="signal-icons fade-up">
+        <div class="signal-row">
+          <div class="signal-icon">📶</div>
+          <div class="signal-icon">🏠</div>
+          <div class="signal-icon">💻</div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-icon">📺</div>
+          <div class="signal-icon">🎮</div>
+        </div>
+        <div class="signal-row">
+          <div class="signal-icon">📱</div>
+          <div class="signal-icon">🔌</div>
+          <div class="signal-icon">🌐</div>
+        </div>
+      </div>
+
+      <!-- Content + carousel -->
+      <div class="fade-up delay-2">
+        <div class="tag" style="margin-bottom:18px;">Why People Switch</div>
+        <div class="big-stat-headline">A Simpler Way to Get<br><span class="gradient-text">Home Internet</span></div>
+        <p class="big-stat-body">A lot of people stay stuck with overpriced or frustrating internet simply because switching feels like a hassle. This page is built to make that first step easier by helping you check availability, understand your options, and move forward with less guesswork.</p>
+
+        <!-- Testimonial carousel -->
+        <div class="carousel">
+          <div class="carousel-quote-mark">"</div>
+          <div class="carousel-text" id="carouselText"></div>
+          <div class="carousel-author">
+            <div class="carousel-avatar" id="carouselAvatar">👤</div>
+            <div>
+              <div class="carousel-name" id="carouselName"></div>
+              <div class="carousel-role" id="carouselRole"></div>
+            </div>
+          </div>
+          <div class="carousel-nav">
+            <button class="carousel-btn" onclick="prevTestimonial()">&#8249;</button>
+            <button class="carousel-btn" onclick="nextTestimonial()">&#8250;</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE SECTION CTA — after social proof -->
+    <div class="section-cta-mobile" style="display:none;">
+      <button class="section-cta-btn" onclick="scrollToForm()">Check Availability &rsaquo;</button>
+      <div class="section-cta-micro">Address-based &middot; 30 seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SERVICES / DIFFERENTIATORS
+     ================================================================ -->
+<section class="section services">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="tag">Why Use a Specialist</div>
+      <h2 class="section-title" style="margin-top:16px;">Why Use a Specialist<br><span class="gradient-text">Instead of Guessing?</span></h2>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card fade-up">
+        <div class="service-icon">📍</div>
+        <div class="service-title">Address Check</div>
+        <div class="service-desc">Find out whether service may be available where you live.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> Address-based review</div>
+          <div class="service-check"><span class="check">✓</span> ZIP confirmation</div>
+          <div class="service-check"><span class="check">✓</span> Coverage guidance</div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon">💡</div>
+        <div class="service-title">Offer Guidance</div>
+        <div class="service-desc">Get help understanding the latest available home internet offers.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> Plan explanation</div>
+          <div class="service-check"><span class="check">✓</span> Pricing overview</div>
+          <div class="service-check"><span class="check">✓</span> Promotion review</div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon">🔄</div>
+        <div class="service-title">Switching Support</div>
+        <div class="service-desc">Make the transition from your current provider feel less overwhelming.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> First-step guidance</div>
+          <div class="service-check"><span class="check">✓</span> Setup expectations</div>
+          <div class="service-check"><span class="check">✓</span> Timing support</div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="service-icon">✅</div>
+        <div class="service-title">Qualification Help</div>
+        <div class="service-desc">Understand what is required before moving forward.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> Eligibility review</div>
+          <div class="service-check"><span class="check">✓</span> Required info checklist</div>
+          <div class="service-check"><span class="check">✓</span> Next-step clarification</div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon">⚡</div>
+        <div class="service-title">Setup Simplicity</div>
+        <div class="service-desc">Many households want internet that is easier to start and manage.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> Self-setup info</div>
+          <div class="service-check"><span class="check">✓</span> Equipment overview</div>
+          <div class="service-check"><span class="check">✓</span> Activation guidance</div>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon">🏪</div>
+        <div class="service-title">Retailer Assistance</div>
+        <div class="service-desc">Work with a team that helps explain the process clearly.</div>
+        <div class="service-checks">
+          <div class="service-check"><span class="check">✓</span> Personalized support</div>
+          <div class="service-check"><span class="check">✓</span> Follow-up help</div>
+          <div class="service-check"><span class="check">✓</span> Clear communication</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE SECTION CTA — after services -->
+    <div class="section-cta-mobile" style="display:none;">
+      <button class="section-cta-btn" onclick="scrollToForm()">Check If You Qualify &rsaquo;</button>
+      <div class="section-cta-micro">Free &middot; No obligation &middot; Address-based</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     DARK FEATURE SECTION
+     ================================================================ -->
+<section class="section dark-feature">
+  <div class="container">
+    <div class="dark-feature-inner scale-in">
+      <div class="tag dark-tag" style="position:relative; z-index:1;">Home Internet Made Simple</div>
+      <h2 class="dark-headline" style="position:relative; z-index:1;">Check if T-Mobile 5G Home Internet<br>is <span style="color:var(--accent);">available near you</span></h2>
+      <p class="dark-body" style="position:relative; z-index:1;">Start with the most important question first. If your address qualifies, a specialist can help you understand the next steps, setup expectations, and current offer details.</p>
+      <div style="position:relative; z-index:1;">
+        <button class="btn-form-cta" style="max-width:280px; margin:0 auto;" onclick="scrollToForm()">Check Availability &rsaquo;</button>
+      </div>
+      <div class="dark-support-labels" style="position:relative; z-index:1;">
+        <div class="dark-support-label"><span class="check-sm">✓</span> No annual contract</div>
+        <div class="dark-support-label"><span class="check-sm">✓</span> Fast setup for many homes</div>
+        <div class="dark-support-label"><span class="check-sm">✓</span> Availability varies by address</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FAQ SECTION (replaces reviews grid)
+     ================================================================ -->
+<section class="section faq">
+  <div class="container">
+    <div class="text-center faq-header fade-up">
+      <div class="tag">Common Questions</div>
+      <h2 class="section-title" style="margin-top:16px;">Real Questions.<br><span class="gradient-text">Clearer Answers.</span></h2>
+      <p class="section-sub" style="margin:0 auto;">Common concerns people have before switching.</p>
+    </div>
+
+    <div class="faq-grid">
+
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is T-Mobile 5G Home Internet available at my address?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <!-- COMPLIANCE: Verify availability language with T-Mobile guidelines -->
+          <p>Availability depends on your specific address and local network capacity. The best way to find out is to submit your address for an eligibility check. Not all areas are covered.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do I need T-Mobile phone service to qualify?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <!-- COMPLIANCE: Confirm standalone availability terms -->
+          <p>In many cases, T-Mobile 5G Home Internet is available as a standalone service. However, some promotional pricing may require or benefit from an existing T-Mobile wireless plan. A specialist can help clarify your options.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there an annual contract?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <!-- COMPLIANCE: Verify no-contract claim with current offer terms -->
+          <p>T-Mobile 5G Home Internet generally does not require an annual service contract. Standard service terms and conditions still apply. Details may vary based on your specific offer.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does the 15-day test drive mean?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <!-- COMPLIANCE: Verify current 15-day test drive terms and eligibility -->
+          <p>Qualifying customers may be able to try the service for up to 15 days. If the service does not meet your needs during that period, you may be able to return the equipment and cancel. Specific terms and eligibility requirements apply.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I switch from my current internet provider?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, many customers switch from cable or DSL providers to T-Mobile 5G Home Internet. We recommend checking availability and reviewing your current contract terms before making a change. A specialist can help guide you through the process.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Are taxes and fees included in the monthly price?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <!-- COMPLIANCE: Verify tax/fee inclusion with current pricing structure -->
+          <p>Pricing details, including whether taxes and fees are included, depend on the specific offer available at your address. A specialist can provide a clearer breakdown of expected monthly costs during your eligibility review.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How does setup work?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <p>For most qualifying addresses, setup involves plugging in a gateway device and following simple on-screen instructions. Many customers are connected within minutes. No professional installation is typically required.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Will speeds be the same in every location?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <p>Speeds vary based on location, network traffic, device capabilities, and other factors. T-Mobile 5G Home Internet is not available in all areas and performance may differ by address. Checking availability is the best first step.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can a specialist help me understand current offers?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. After you submit your information, a specialist can walk you through currently available plans, promotions, and pricing based on your address and eligibility.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-up delay-1">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What information do I need to check availability?
+          <div class="faq-toggle">+</div>
+        </button>
+        <div class="faq-answer">
+          <p>You'll need your full street address including ZIP code, along with basic contact information (name, email, and phone number) so a specialist can follow up with your results.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MOBILE SECTION CTA — after FAQ -->
+    <div class="section-cta-mobile" style="display:none;">
+      <button class="section-cta-btn" onclick="scrollToForm()">Check Availability Now &rsaquo;</button>
+      <div class="section-cta-micro">Takes less than 30 seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FINAL CTA SECTION
+     ================================================================ -->
+<section class="footer-cta">
+  <div class="container">
+    <div class="footer-cta-inner">
+      <div class="fade-up">
+        <div class="tag" style="margin-bottom:18px;">Ready to Check?</div>
+        <h2>See If Your Home<br><span class="gradient-text">Qualifies</span></h2>
+        <p>Start with a quick address check and get help understanding whether T-Mobile 5G Home Internet may be available for your home.</p>
+
+        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:24px;">
+          <div class="footer-trust-badge">🔒 &nbsp;Secure Request Form</div>
+          <div class="footer-trust-badge">🏪 &nbsp;Authorized Retailer Support</div>
+          <div class="footer-trust-badge">✅ &nbsp;No Obligation to Check</div>
+        </div>
+      </div>
+
+      <div class="footer-cta-card scale-in">
+        <div class="footer-cta-card-head">
+          Check Availability
+        </div>
+        <div class="footer-cta-card-body">
+          <div class="form-field">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" placeholder="Full Name">
+          </div>
+          <div class="form-field">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" placeholder="Email Address">
+          </div>
+          <div class="form-field">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.09 1.18 2 2 0 012.11 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <input type="tel" placeholder="Phone Number">
+          </div>
+          <div class="form-field">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <input type="text" placeholder="Street Address">
+          </div>
+          <div class="form-field">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <input type="text" placeholder="ZIP Code" maxlength="10">
+          </div>
+          <!-- COMPLIANCE: TCPA consent — must be reviewed before launch -->
+          <div class="form-consent" style="margin-bottom:14px;">
+            <input type="checkbox" id="consent-footer">
+            <label for="consent-footer">By submitting, you agree to be contacted regarding home internet offers. Consent is not required for purchase. <a href="#">Privacy</a> &middot; <a href="#">Terms</a></label>
+          </div>
+          <button class="btn-form-cta" onclick="submitFooterForm()">Check Availability &rsaquo;</button>
+          <div style="text-align:center; margin-top:10px; font-size:.73rem; color:var(--muted);">
+            🔒 Secure &middot; No obligation &middot; Address-based check
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FOOTER
+     ================================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand col -->
+      <div class="footer-brand">
+        <img src="images/collins-mobile-logo.png" alt="Collins Mobile" style="height:30px; width:auto; margin-bottom:8px; filter:brightness(0) invert(1);">
+        <p>Authorized retailer support for T-Mobile 5G Home Internet availability checks, offer guidance, and setup assistance.</p>
+      </div>
+
+      <!-- Legal col -->
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Messaging Terms</a>
+        <a href="#">Do Not Sell or Share My Info</a>
+        <a href="#">Contact Us</a>
+      </div>
+
+      <!-- Contact col -->
+      <div class="footer-col footer-contact">
+        <h4>Get in Touch</h4>
+        <p>✉️ <strong>hello@collinsmobile.com</strong></p>
+        <p style="margin-top:10px; font-size: .8rem; line-height: 1.6;">
+          <!-- COMPLIANCE: Update with real business address -->
+          Collins Mobile<br>
+          123 Main Street, Suite 100<br>
+          Tampa, FL 33601<br>
+          United States
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ================================================================
+         DISCLAIMER BLOCK
+         COMPLIANCE: This entire block must be reviewed by legal counsel
+         before launch. All language is placeholder-grade.
+         ================================================================ -->
+    <div class="footer-disclaimer">
+      <p>Offers, pricing, and promotions are subject to change without notice. Availability is not guaranteed and varies by address. T-Mobile 5G Home Internet service is not available in all areas.</p>
+      <p>Taxes, fees, equipment charges, and eligibility requirements may apply. Speeds may vary based on location, network conditions, device capabilities, and other factors. The 15-day test drive and $35/mo pricing referenced on this page are subject to specific terms and qualifying conditions.</p>
+      <p>T-Mobile, the T logo, and the magenta color are registered trademarks of T-Mobile USA, Inc. This website is operated by Collins Mobile, an authorized retailer and marketing partner. This is not the official T-Mobile corporate website.</p>
+      <p>By using this site and submitting your information, you acknowledge and agree to our Privacy Policy and Terms of Service. Consent to be contacted is not a condition of purchase.</p>
+      <!-- COMPLIANCE: Final disclaimer language should be reviewed by legal and compliance teams before this page goes live. -->
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Collins Mobile. All rights reserved.</div>
+      <div class="footer-badges">
+        <div class="footer-badge"><span>🔒</span> Secure &amp; Encrypted</div>
+        <div class="footer-badge"><span>🏪</span> Authorized Retailer</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================================
+     SUCCESS MODAL
+     ================================================================ -->
+<div class="success-modal" id="successModal" role="dialog" aria-modal="true">
+  <div class="success-modal-backdrop" onclick="closeSuccessModal()"></div>
+  <div class="success-modal-card">
+    <span class="success-modal-icon">🎉</span>
+    <h2 class="success-modal-title">You're all set, <span class="name-highlight" id="successName">there</span>!</h2>
+    <p class="success-modal-sub">A specialist will be in touch to confirm 5G Home Internet availability at:</p>
+    <div class="success-modal-address-box">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span id="successAddress">your address</span>
+    </div>
+    <p class="success-modal-next">Expect a call or text within 24 hours. Our team will walk you through available plans, pricing, and next steps — no pressure.</p>
+    <div class="success-modal-badges">
+      <div class="success-modal-badge">🔒 Secure</div>
+      <div class="success-modal-badge">🏪 Authorized Retailer</div>
+      <div class="success-modal-badge">✅ No Obligation</div>
+    </div>
+    <button class="success-modal-close" onclick="closeSuccessModal()">Got It — Close</button>
+  </div>
+</div>
+
+<!-- STICKY MOBILE CTA — dual: price anchor + action -->
+<div class="sticky-mobile">
+  <div class="sticky-mobile-inner">
+    <div class="sticky-mobile-copy">
+      <!-- COMPLIANCE: Verify $35/mo pricing -->
+      <div class="sticky-mobile-price">From <span>$35</span>/mo</div>
+      <div class="sticky-mobile-sub">No contract &middot; Check your address</div>
+    </div>
+    <button class="sticky-mobile-btn" onclick="scrollToForm()">Check Availability</button>
+  </div>
+</div>
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
 <script>
-// ── EDIT: thank you page filename ──
-const TY_URL = 'thankyou-callin.html';
+/* ——— TESTIMONIALS ——— */
+const testimonials = [
+  {
+    text: "I just wanted to know if it was available at my house. The process was simple and way less confusing than calling around.",
+    name: "Melissa R.",
+    role: "Home Internet Shopper",
+    avatar: "👩"
+  },
+  {
+    text: "The biggest thing for me was avoiding a contract and getting help understanding what I actually qualified for.",
+    name: "David T.",
+    role: "New Customer Inquiry",
+    avatar: "👨"
+  },
+  {
+    text: "I liked that someone actually helped explain the next steps instead of dumping me into a generic form.",
+    name: "Angela P.",
+    role: "Availability Check Lead",
+    avatar: "👩‍💼"
+  }
+];
 
-let formData = {};
+let currentTestimonial = 0;
 
-function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.body.style.overflow=''; }
-function maybeClose(e) { if(e.target===document.getElementById('sheetOverlay')) closeSheet(); }
-function goStep(n) { document.querySelectorAll('.sheet-step').forEach(s=>s.classList.remove('on')); document.getElementById('ss'+n).classList.add('on'); document.getElementById('sheet').scrollTop=0; }
+function renderTestimonial() {
+  const t = testimonials[currentTestimonial];
+  const textEl = document.getElementById('carouselText');
+  const nameEl = document.getElementById('carouselName');
+  const roleEl = document.getElementById('carouselRole');
+  const avatarEl = document.getElementById('carouselAvatar');
 
-function val(inputId,errId,testFn){ const el=document.getElementById(inputId); const ok=testFn(el.value); el.classList.toggle('err',!ok); document.getElementById(errId).classList.toggle('show',!ok); return ok; }
+  textEl.style.opacity = '0';
+  textEl.style.transform = 'translateY(8px)';
+  setTimeout(() => {
+    textEl.textContent = t.text;
+    nameEl.textContent = t.name;
+    roleEl.textContent = t.role;
+    avatarEl.textContent = t.avatar;
+    textEl.style.opacity = '1';
+    textEl.style.transform = 'translateY(0)';
+  }, 220);
+}
 
-document.getElementById('ph').addEventListener('input',function(){
-  let v=this.value.replace(/\D/g,'').substring(0,10);
-  if(v.length>=7) v='('+v.slice(0,3)+') '+v.slice(3,6)+'-'+v.slice(6);
-  else if(v.length>=4) v='('+v.slice(0,3)+') '+v.slice(3);
-  else if(v.length>0) v='('+v;
-  this.value=v;
-});
+function nextTestimonial() {
+  currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+  renderTestimonial();
+}
+function prevTestimonial() {
+  currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+  renderTestimonial();
+}
 
-async function doSubmit(){
-  const f=val('fn','fn-e',v=>v.trim().length>0);
-  const l=val('ln','ln-e',v=>v.trim().length>0);
-  const p=val('ph','ph-e',v=>v.replace(/\D/g,'').length>=10);
-  const e=val('em','em-e',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
-  const a=val('streetaddress','saddr-e',v=>v.trim().length>3);
-  const z=val('zip','zip-e',v=>/^\d{5}$/.test(v.trim()));
-  if(!f||!l||!p||!e||!a||!z) return;
+setInterval(nextTestimonial, 6000);
+renderTestimonial();
 
-  const cb=document.getElementById('tcpa');
-  if(!cb.checked){ const b=cb.closest('.consent'); b.style.border='1.5px solid rgba(255,92,92,0.7)'; setTimeout(()=>{b.style.border='';},2500); return; }
+const carouselTextEl = document.getElementById('carouselText');
+if (carouselTextEl) carouselTextEl.style.transition = 'opacity .3s cubic-bezier(.22,1,.36,1), transform .3s cubic-bezier(.22,1,.36,1)';
 
-  document.getElementById('submitBtn').style.display='none';
-  document.getElementById('loader').classList.add('on');
+/* Touch swipe support for carousel */
+(function() {
+  const carouselEl = document.querySelector('.carousel');
+  if (!carouselEl) return;
+  let startX = 0, isDragging = false;
+  carouselEl.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+  carouselEl.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) { dx < 0 ? nextTestimonial() : prevTestimonial(); }
+    isDragging = false;
+  }, { passive: true });
+})();
 
-  formData.firstName = document.getElementById('fn').value.trim();
-  formData.lastName  = document.getElementById('ln').value.trim();
-  formData.fullName  = formData.firstName + ' ' + formData.lastName;
-  formData.phone     = document.getElementById('ph').value.trim();
-  formData.email     = document.getElementById('em').value.trim();
-  formData.address   = document.getElementById('streetaddress').value.trim();
-  formData.zip       = document.getElementById('zip').value.trim();
-  formData.timestamp   = new Date().toISOString();
-  formData.tcpaConsent = true;
+/* ——— FAQ ACCORDION ——— */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
 
-  sessionStorage.setItem('tmLead', JSON.stringify(formData));
+  // close all
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
 
-  try {
-    await fetch('/api/submit-contact', {
-      method:  'POST',
-      headers: {'Content-Type':'application/json'},
-      body:    JSON.stringify({
-        firstName: formData.firstName,
-        lastName:  formData.lastName,
-        email:     formData.email,
-        phone:     formData.phone,
-        address:   formData.address,
-        zip:       formData.zip,
-        formId:    'RrGC4bSP8qDZihXCJXux',
-      })
+  // toggle clicked
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ——— PROGRESSIVE FORM (mobile) ——— */
+let formStep = 1;
+const isMobile = () => window.innerWidth <= 640;
+
+function handleHeroForm(event) {
+  if (event) event.preventDefault();
+  if (isMobile() && formStep === 1) {
+    // Validate step 1
+    const zip = document.getElementById('lead-zip')?.value?.trim();
+    const name = document.getElementById('lead-name')?.value?.trim();
+    if (!zip) { document.getElementById('lead-zip')?.focus(); return; }
+    if (!name) { document.getElementById('lead-name')?.focus(); return; }
+
+    // Expand step 2
+    formStep = 2;
+    document.querySelectorAll('.form-step-2').forEach(el => el.classList.add('active'));
+    document.getElementById('fpDot2')?.classList.add('active');
+    document.getElementById('heroFormCta').textContent = 'Check Availability ›';
+
+    // Scroll form into nice view and focus first step-2 field
+    setTimeout(() => {
+      document.getElementById('lead-email')?.focus();
+    }, 350);
+    return;
+  }
+  // Step 2 or desktop: submit
+  const name    = document.getElementById('lead-name')?.value?.trim()    || '';
+  const address = document.getElementById('lead-address')?.value?.trim() || '';
+  const zip     = document.getElementById('lead-zip')?.value?.trim()     || '';
+  const email   = document.getElementById('lead-email')?.value?.trim()   || '';
+  const phone   = document.getElementById('lead-phone')?.value?.trim()   || '';
+  goToQuiz(name, address, zip, email, phone);
+}
+
+// On desktop, show all fields immediately
+if (!isMobile()) {
+  document.querySelectorAll('.form-step-2').forEach(el => el.classList.add('active'));
+}
+
+/* ——— SMART STICKY CTA — hide when any form is in view ——— */
+(function() {
+  const sticky = document.querySelector('.sticky-mobile');
+  const heroForm = document.getElementById('heroForm');
+  if (!sticky || !heroForm) return;
+
+  /* Start hidden so it slides in after hero scrolls out */
+  if (isMobile()) { sticky.style.transform = 'translateY(100%)'; }
+
+  let formVisible = false;
+  const stickyObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!isMobile()) return;
+      formVisible = e.isIntersecting;
+      sticky.style.transform = formVisible ? 'translateY(100%)' : 'translateY(0)';
+      sticky.style.transition = 'transform .3s cubic-bezier(.22,1,.36,1)';
     });
-  } catch(e) {}
+  }, { threshold: 0.15 });
+  stickyObs.observe(heroForm);
 
-  window.location.href = TY_URL;
+  const footerForm = document.querySelector('.footer-cta-card');
+  if (footerForm) stickyObs.observe(footerForm);
+})();
+
+/* ——— MOBILE: instant reveal for above-fold ——— */
+(function() {
+  if (!isMobile()) return;
+  document.querySelectorAll('.hero .fade-up, .hero .scale-in').forEach(el => {
+    el.style.transition = 'none';
+    el.classList.add('visible');
+    // re-enable transitions after paint
+    requestAnimationFrame(() => { el.style.transition = ''; });
+  });
+})();
+
+/* ——— SCROLL ANIMATIONS ——— */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up, .scale-in').forEach(el => observer.observe(el));
+
+/* ——— NAVIGATION ——— */
+function scrollToForm() {
+  document.getElementById('heroForm')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+
+function goToQuiz(sourceName, sourceAddress, sourceZip, sourceEmail, sourcePhone) {
+  const modal = document.getElementById('successModal');
+  const nameEl = document.getElementById('successName');
+  const addrEl = document.getElementById('successAddress');
+
+  const name  = (sourceName    || '').trim();
+  const addr  = (sourceAddress || '').trim();
+  const zip   = (sourceZip     || '').trim();
+  const email = (sourceEmail   || '').trim();
+  const phone = (sourcePhone   || '').trim();
+
+  nameEl.textContent = name || 'there';
+  addrEl.textContent = [addr, zip].filter(Boolean).join(', ') || 'your address';
+
+  // Split full name into first / last for the CRM
+  const parts     = name.split(/\s+/);
+  const firstName = parts[0] || '';
+  const lastName  = parts.slice(1).join(' ') || '';
+
+  // POST lead to Lead Connector CRM — also calls backend.leadconnectorhq.com/forms/submit
+  // server-side to record the form opt-in in GHL stats (no webhook cost).
+  fetch('https://t-mobile-landers.vercel.app/api/submit-contact', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      phone,
+      address: addr,
+      zip,
+      formId: 'RrGC4bSP8qDZihXCJXux',
+    }),
+  }).catch(() => {});
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Redirect to funnel after 3 seconds so the lead is captured even if CORS blocks the fetch above
+  setTimeout(() => {
+    const params = new URLSearchParams({ fn: firstName, ln: lastName, em: email, ph: phone, addr, zip });
+    window.location.href = 'https://unlimited5ghomeinternet.com/nb02-thank-you-page?' + params.toString();
+  }, 3000);
+}
+
+function closeSuccessModal() {
+  const modal = document.getElementById('successModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function submitFooterForm() {
+  const fields = document.querySelector('.footer-cta-card-body');
+  if (!fields) { goToQuiz('', '', '', '', ''); return; }
+  const inputs = fields.querySelectorAll('input');
+  const name    = inputs[0]?.value?.trim() || '';
+  const email   = inputs[1]?.value?.trim() || '';
+  const phone   = inputs[2]?.value?.trim() || '';
+  const address = inputs[3]?.value?.trim() || '';
+  const zip     = inputs[4]?.value?.trim() || '';
+  goToQuiz(name, address, zip, email, phone);
 }
 </script>
+
+
+<!-- GHL external form tracking — records page views and form opt-ins in GHL stats -->
+<script
+  src="https://link.leadstacker.com/js/external-tracking.js"
+  data-tracking-id="tk_d86a7b4d23f64a34b40324aef96e3bff"
+  data-formid="RrGC4bSP8qDZihXCJXux"
+></script>
 
 </body>
 </html>
