@@ -16,9 +16,10 @@
   --r: 14px; --r-lg: 20px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
+html{background:var(--bg)}
+html,body{min-height:100%;height:auto;font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 100% 45% at 50% -5%,rgba(226,0,106,0.13) 0%,transparent 65%),radial-gradient(ellipse 60% 35% at 95% 90%,rgba(40,0,160,0.10) 0%,transparent 55%)}
-.shell{position:relative;z-index:1;max-width:430px;margin:0 auto;display:flex;flex-direction:column;min-height:100dvh}
+.shell{position:relative;z-index:1;max-width:430px;margin:0 auto;display:flex;flex-direction:column;min-height:100vh;background:var(--bg)}
 
 /* TICKER */
 .ticker-wrap{background:var(--pink);overflow:hidden;white-space:nowrap;padding:7px 0;font-size:11px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#fff;position:relative;z-index:20;flex-shrink:0}
@@ -84,7 +85,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 /* FORM SHEET */
 .sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:100;align-items:flex-end;justify-content:center}
 .sheet-overlay.open{display:flex}
-.sheet{background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:20px 20px 40px;width:100%;max-width:430px;animation:sheetUp .32s cubic-bezier(0.34,1.06,0.64,1);max-height:92dvh;overflow-y:auto}
+.sheet{background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:20px 20px 40px;width:100%;max-width:430px;animation:sheetUp .32s cubic-bezier(0.34,1.06,0.64,1);max-height:92vh;overflow-y:auto}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .sheet-handle{width:38px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
 
