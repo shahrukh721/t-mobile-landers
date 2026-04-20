@@ -246,10 +246,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
     <!-- STEP 1: All Info -->
     <div class="sheet-step on" id="ss1">
-      <div class="prog-track">
-        <div class="prog-seg now"></div><div class="prog-seg"></div>
-      </div>
-      <div class="prog-meta"><b>Step 1 of 2 — Your Details</b><span>~30 sec</span></div>
       <div class="st-title">Check Your Availability</div>
       <div class="st-sub">Enter your info to see if T-Mobile 5G Home Internet is available for you.</div>
 
@@ -293,35 +289,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
           <input type="tel" id="zip" placeholder="90210" maxlength="5" inputmode="numeric">
           <div class="ferr" id="zip-e">Valid ZIP.</div>
         </div>
-      </div>
-      <button class="btn btn-primary" onclick="goS2()">See My Offer →</button>
-      <div class="trust">
-        <div class="trust-i"><span>✓</span> Secure</div>
-        <div class="trust-i"><span>✓</span> No spam</div>
-        <div class="trust-i"><span>✓</span> Free to check</div>
-      </div>
-    </div>
-
-    <!-- STEP 3: Consent + Submit -->
-    <div class="sheet-step" id="ss3">
-      <div class="prog-track">
-        <div class="prog-seg done"></div><div class="prog-seg now"></div>
-      </div>
-      <div class="prog-meta"><b>Step 2 of 2 — Unlock Offer</b><span>Last step!</span></div>
-      <button class="btn-back" onclick="goStep(1)">← Back</button>
-      <div class="st-title">Confirm & Unlock</div>
-      <div class="st-sub">Review your offer and submit to see your personalized promotion.</div>
-      <div class="urg">
-        <span style="font-size:17px;flex-shrink:0">🕐</span>
-        <div class="urg-text">Pricing &amp; offer eligibility <b>may change</b>. Submit now to secure your eligibility check.</div>
-      </div>
-      <!-- UPDATED final offer recap -->
-      <div class="offer-recap">
-        <div class="or-head">✦ Today's Offer Summary</div>
-        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet — as low as <strong>$35/mo</strong> with AutoPay &amp; voice line</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>$100</strong> back via Virtual Prepaid Mastercard®</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>Free</strong> 5G Gateway · No Equipment Fee</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>No Annual Contract · 15-Day Trial</span></div>
       </div>
       <div class="consent">
         <label>
@@ -370,7 +337,7 @@ function goS2(){
   const e=val('em','em-e',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
   const a=val('streetaddress','saddr-e',v=>v.trim().length>3);
   const z=val('zip','zip-e',v=>/^\d{5}$/.test(v.trim()));
-  if(!f||!l||!p||!e||!a||!z) return;
+  if(!f||!l||!p||!e||!a||!z) return false;
   formData.firstName = document.getElementById('fn').value.trim();
   formData.lastName  = document.getElementById('ln').value.trim();
   formData.fullName  = formData.firstName + ' ' + formData.lastName;
@@ -378,7 +345,7 @@ function goS2(){
   formData.email     = document.getElementById('em').value.trim();
   formData.address   = document.getElementById('streetaddress').value.trim();
   formData.zip       = document.getElementById('zip').value.trim();
-  goStep(3);
+  return true;
 }
 
 document.getElementById('ph').addEventListener('input',function(){
@@ -392,6 +359,7 @@ document.getElementById('ph').addEventListener('input',function(){
 });
 
 async function doSubmit(){
+  if(!goS2()) return;
   const cb=document.getElementById('tcpa');
   if(!cb.checked){ const b=cb.closest('.consent'); b.style.border='1.5px solid rgba(255,92,92,0.7)'; setTimeout(()=>{b.style.border='';},2500); return; }
 
