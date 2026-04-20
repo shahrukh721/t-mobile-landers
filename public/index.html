@@ -2963,20 +2963,6 @@ function goToQuiz(sourceName, sourceAddress, sourceZip, sourceEmail, sourcePhone
   const firstName = parts[0] || '';
   const lastName  = parts.slice(1).join(' ') || '';
 
-  // Fire GHL tracking: fill + submit the hidden shadow form so external-tracking.js
-  // records this as a form opt-in in GHL stats.
-  (function() {
-    const sf = document.getElementById('ghl-shadow-form');
-    if (!sf) return;
-    const set = (n, v) => { const el = sf.querySelector('[name="' + n + '"]'); if (el) el.value = v || ''; };
-    set('name',        (firstName + ' ' + lastName).trim());
-    set('email',       email);
-    set('phone',       phone);
-    set('address1',    addr);
-    set('postal_code', zip);
-    sf.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-  })();
-
   // POST lead to Lead Connector CRM — also calls backend.leadconnectorhq.com/forms/submit
   // server-side to record the form opt-in in GHL stats (no webhook cost).
   fetch('https://t-mobile-landers.vercel.app/api/submit-contact', {
@@ -3023,23 +3009,6 @@ function submitFooterForm() {
 </script>
 
 
-<!-- Hidden form — invisible to users, exists only so GHL's external-tracking.js
-     can intercept the submit event and record a form opt-in in GHL stats.
-     It is never displayed and never posted to any server. -->
-<form id="ghl-shadow-form" style="display:none!important;" onsubmit="return false;" aria-hidden="true">
-  <input type="text"  name="name"         autocomplete="off">
-  <input type="email" name="email"        autocomplete="off">
-  <input type="tel"   name="phone"        autocomplete="off">
-  <input type="text"  name="address1"     autocomplete="off">
-  <input type="text"  name="postal_code"  autocomplete="off">
-</form>
-
-<!-- GHL external form tracking — records page views and form opt-ins in GHL stats -->
-<script
-  src="https://link.leadstacker.com/js/external-tracking.js"
-  data-tracking-id="tk_d86a7b4d23f64a34b40324aef96e3bff"
-  data-formid="RrGC4bSP8qDZihXCJXux"
-></script>
 
 </body>
 </html>
