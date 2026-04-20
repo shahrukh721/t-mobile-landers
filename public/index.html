@@ -354,9 +354,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 </div><!-- /overlay -->
 
 <script>
-// ── EDIT: thank you page filename ──
-const TY_URL = 'https://unlimited5ghomeinternet.com/nb02-thank-you-page';
-
 let formData = {};
 
 function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
@@ -421,7 +418,7 @@ async function doSubmit(){
   } catch(e) {}
 
   fillGhlForm(formData);
-  window.location.href = TY_URL;
+  closeSheet();
 }
 
 function fillGhlForm(data) {
