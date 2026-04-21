@@ -216,26 +216,26 @@ const PHONE_TEL     = 'tel:+18333999699';
 const TIMER_SECONDS = 15 * 60;             // ← 900 = 15 min
 // ══════════════════════════
 
-// ── Personalize from sessionStorage ──
+// ── Personalize from URL params (GHL redirect) or sessionStorage (fallback) ──
 (function(){
-  let lead = {};
-  try { lead = JSON.parse(sessionStorage.getItem('tmLead') || '{}'); } catch(e){}
+  // URL params take priority — GHL sets these via merge tags in the redirect URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let name    = (urlParams.get('name')    || '').trim();
+  let address = (urlParams.get('address') || '').trim();
 
-  const name    = (lead.firstName || '').trim();
-  const address = (lead.address   || '').trim();
-  const zip     = (lead.zip       || '').trim();
-
-  // Inject first name into headline
-  if(name){
-    document.getElementById('heroName').textContent = name;
+  // Fallback to sessionStorage (legacy custom form)
+  if(!name || !address){
+    let lead = {};
+    try { lead = JSON.parse(sessionStorage.getItem('tmLead') || '{}'); } catch(e){}
+    if(!name)    name    = (lead.firstName || '').trim();
+    if(!address) address = ((lead.address || '') + (lead.zip ? ', ' + lead.zip : '')).trim();
   }
 
-  // Inject address + ZIP into pill
+  if(name)    document.getElementById('heroName').textContent = name;
+
   if(address){
-    const full = address + (zip ? ', ' + zip : '');
-    document.getElementById('heroAddress').textContent = full;
+    document.getElementById('heroAddress').textContent = address;
   } else {
-    // Hide the pill if no address was captured
     const pill = document.getElementById('addrPill');
     if(pill) pill.style.display = 'none';
   }
