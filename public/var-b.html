@@ -266,6 +266,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <script src="https://link.leadstacker.com/js/form_embed.js"></script>
 
 <script>
+// Forward URL params (email, subid, etc.) to GHL iframe for pre-population
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  if(!p.toString()) return;
+  var f = document.getElementById('inline-GQIPOA42vlm8nPN7sC7Z');
+  if(f) f.src = f.src + (f.src.indexOf('?')!==-1?'&':'?') + p.toString();
+})();
+
 function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.body.style.overflow=''; }
 function maybeClose(e) { if(e.target===document.getElementById('sheetOverlay')) closeSheet(); }
