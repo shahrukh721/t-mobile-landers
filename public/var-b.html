@@ -84,7 +84,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 /* FORM SHEET */
 .sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:100;align-items:flex-end;justify-content:center}
 .sheet-overlay.open{display:flex}
-.sheet{background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:20px 20px 40px;width:100%;max-width:430px;animation:sheetUp .32s cubic-bezier(0.34,1.06,0.64,1);max-height:92dvh;overflow-y:auto}
+.sheet{background:var(--surface);border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,0.1);padding:16px 0 0;width:100%;max-width:430px;animation:sheetUp .32s cubic-bezier(0.34,1.06,0.64,1);max-height:92dvh;overflow-y:auto}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .sheet-handle{width:38px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
 
@@ -244,166 +244,31 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div class="sheet" id="sheet">
     <div class="sheet-handle"></div>
 
-    <!-- STEP 1: All Info -->
-    <div class="sheet-step on" id="ss1">
-      <div class="st-title">Check Your Availability</div>
-      <div class="st-sub">Enter your info to see if T-Mobile 5G Home Internet is available for you.</div>
-
-      <div class="offer-recap">
-        <div class="or-head">✦ Your Offer Includes</div>
-        <div class="or-item"><div class="or-check">✓</div><span>5G Residential Home Internet</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span><strong>$100</strong> back via Virtual Prepaid Mastercard®</span></div>
-        <div class="or-item"><div class="or-check">✓</div><span>15-Day Worry-Free Test Drive</span></div>
-      </div>
-
-      <div class="frow">
-        <div class="field">
-          <label>First Name</label>
-          <input type="text" id="fn" placeholder="Jane" autocomplete="given-name">
-          <div class="ferr" id="fn-e">Required.</div>
-        </div>
-        <div class="field">
-          <label>Last Name</label>
-          <input type="text" id="ln" placeholder="Smith" autocomplete="family-name">
-          <div class="ferr" id="ln-e">Required.</div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Phone Number</label>
-        <input type="tel" id="ph" placeholder="(555) 000-0000" inputmode="tel" autocomplete="tel">
-        <div class="ferr" id="ph-e">Valid phone required.</div>
-      </div>
-      <div class="field">
-        <label>Email Address</label>
-        <input type="email" id="em" placeholder="jane@email.com" inputmode="email" autocomplete="email">
-        <div class="ferr" id="em-e">Valid email required.</div>
-      </div>
-      <div class="frow">
-        <div class="field">
-          <label>Street Address</label>
-          <input type="text" id="streetaddress" placeholder="123 Main Street" autocomplete="street-address">
-          <div class="ferr" id="saddr-e">Required.</div>
-        </div>
-        <div class="field">
-          <label>ZIP Code</label>
-          <input type="tel" id="zip" placeholder="90210" maxlength="5" inputmode="numeric">
-          <div class="ferr" id="zip-e">Valid ZIP.</div>
-        </div>
-      </div>
-      <div class="consent">
-        <label>
-          <input type="checkbox" id="tcpa">
-          <div class="consent-copy">
-            By checking this box and clicking below, I authorize T-Mobile (and its authorized marketing partners) to contact me using automated dialing, AI, pre-recorded voice, and text/SMS for marketing at the number and email provided, even if on a Do Not Call list. Consent not required for purchase. Msg &amp; data rates may apply. I agree to the <a href="https://unlimited5ghomeinternet.com/terms-of-services" target="_blank" rel="noopener">Terms</a> and <a href="https://unlimited5ghomeinternet.com/privacy-policy-is" target="_blank" rel="noopener">Privacy Policy</a>. Text STOP to opt out.
-          </div>
-        </label>
-      </div>
-      <div class="consent" style="margin-top:8px;">
-        <label>
-          <input type="checkbox" id="do-not-sell">
-          <div class="consent-copy">Do not sell my data <span style="opacity:.7;">(CA residents only)</span></div>
-        </label>
-      </div>
-      <div class="loading" id="loader">
-        <div class="spin"></div>
-        <div class="load-t">Checking Your Area…</div>
-        <div class="load-s">Verifying offer availability &amp; promotions.</div>
-      </div>
-      <button class="btn btn-primary" id="submitBtn" onclick="doSubmit()">🔓 Unlock My Offer Now</button>
-      <div class="trust">
-        <div class="trust-i"><span>✓</span> SSL Secured</div>
-        <div class="trust-i"><span>✓</span> No Contract</div>
-        <div class="trust-i"><span>✓</span> Free to Check</div>
-      </div>
-    </div>
-
+    <iframe
+      src="https://link.leadstacker.com/widget/form/GQIPOA42vlm8nPN7sC7Z"
+      style="width:100%;height:1045px;border:none;border-radius:4px"
+      id="inline-GQIPOA42vlm8nPN7sC7Z"
+      data-layout="{'id':'INLINE'}"
+      data-trigger-type="alwaysShow"
+      data-trigger-value=""
+      data-activation-type="alwaysActivated"
+      data-activation-value=""
+      data-deactivation-type="neverDeactivate"
+      data-deactivation-value=""
+      data-form-name="NB02 - 1-833-399-9699 - Shahrukh Ai Split Test"
+      data-height="1045"
+      data-layout-iframe-id="inline-GQIPOA42vlm8nPN7sC7Z"
+      data-form-id="GQIPOA42vlm8nPN7sC7Z"
+      title="NB02 - 1-833-399-9699 - Shahrukh Ai Split Test"
+    ></iframe>
   </div><!-- /sheet -->
 </div><!-- /overlay -->
+<script src="https://link.leadstacker.com/js/form_embed.js"></script>
 
 <script>
-let formData = {};
-
 function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); document.body.style.overflow=''; }
 function maybeClose(e) { if(e.target===document.getElementById('sheetOverlay')) closeSheet(); }
-function goStep(n) { document.querySelectorAll('.sheet-step').forEach(s=>s.classList.remove('on')); document.getElementById('ss'+n).classList.add('on'); document.getElementById('sheet').scrollTop=0; }
-
-function val(inputId,errId,testFn){ const el=document.getElementById(inputId); const ok=testFn(el.value); el.classList.toggle('err',!ok); document.getElementById(errId).classList.toggle('show',!ok); return ok; }
-
-function goS2(){
-  const f=val('fn','fn-e',v=>v.trim().length>0);
-  const l=val('ln','ln-e',v=>v.trim().length>0);
-  const p=val('ph','ph-e',v=>v.replace(/\D/g,'').length>=10);
-  const e=val('em','em-e',v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
-  const a=val('streetaddress','saddr-e',v=>v.trim().length>3);
-  const z=val('zip','zip-e',v=>/^\d{5}$/.test(v.trim()));
-  if(!f||!l||!p||!e||!a||!z) return false;
-  formData.firstName = document.getElementById('fn').value.trim();
-  formData.lastName  = document.getElementById('ln').value.trim();
-  formData.fullName  = formData.firstName + ' ' + formData.lastName;
-  formData.phone     = document.getElementById('ph').value.trim();
-  formData.email     = document.getElementById('em').value.trim();
-  formData.address   = document.getElementById('streetaddress').value.trim();
-  formData.zip       = document.getElementById('zip').value.trim();
-  return true;
-}
-
-document.getElementById('ph').addEventListener('input',function(){
-  let v=this.value.replace(/\D/g,'');
-  if(v.length===11&&v.charAt(0)==='1') v=v.substring(1);
-  v=v.substring(0,10);
-  if(v.length>=7) v='('+v.slice(0,3)+') '+v.slice(3,6)+'-'+v.slice(6);
-  else if(v.length>=4) v='('+v.slice(0,3)+') '+v.slice(3);
-  else if(v.length>0) v='('+v;
-  this.value=v;
-});
-
-async function doSubmit(){
-  if(!goS2()) return;
-  const cb=document.getElementById('tcpa');
-  if(!cb.checked){ const b=cb.closest('.consent'); b.style.border='1.5px solid rgba(255,92,92,0.7)'; setTimeout(()=>{b.style.border='';},2500); return; }
-
-  document.getElementById('submitBtn').style.display='none';
-  document.getElementById('loader').classList.add('on');
-
-  formData.timestamp   = new Date().toISOString();
-  formData.tcpaConsent = true;
-
-  sessionStorage.setItem('tmLead', JSON.stringify(formData));
-
-  try {
-    await fetch('/api/submit-contact', {
-      method:  'POST',
-      headers: {'Content-Type':'application/json'},
-      body:    JSON.stringify({
-        formId:    '1Wu2Rb3kYfugg6akLPwY',
-        firstName: formData.firstName,
-        lastName:  formData.lastName,
-        email:     formData.email,
-        phone:     formData.phone,
-        address:   formData.address,
-        zip:       formData.zip,
-      })
-    });
-  } catch(e) {}
-
-  fillGhlForm(formData);
-  window.location.href = '/thankyou-callin';
-}
-
-function fillGhlForm(data) {
-  fetch('https://services.leadconnectorhq.com/v1/form/submit', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      formId:     '1Wu2Rb3kYfugg6akLPwY',
-      locationId: 'nUjkIBVb6uLt3t9q9L7q',
-      name:       data.firstName + ' ' + data.lastName,
-      email:      data.email,
-      phone:      data.phone,
-    })
-  }).catch(()=>{});
-}
 function openTermsModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
 function closeTermsModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
 document.addEventListener('click',function(e){if(e.target.classList.contains('terms-modal-overlay'))closeTermsModal(e.target.id);});
