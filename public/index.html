@@ -291,5 +291,26 @@ document.addEventListener('click',function(e){if(e.target.classList.contains('te
     <p>Via virtual prepaid Mastercard when you activate a new Home Internet line online. Allow 10 weeks. Limited-time offer; subject to change. Register code within 30 days of activating new Home Internet line. If you have cancelled Internet lines in past 90 days, you may need to reactivate them first. $150 via virtual prepaid Mastercard; requires 60 days service before validation; use online or in-store via accepted mobile payment apps; no cash access &amp; expires in 6 months. The Virtual Prepaid Mastercard is issued by Sunrise Banks N.A., Member FDIC, pursuant to a license from Mastercard International Incorporated. Mastercard is a registered trademark, and the circles design is a trademark of Mastercard International Incorporated. This card may be used everywhere Debit Mastercard is accepted. Registration, activation, acceptance, or use of this card constitutes acceptance of the terms and conditions stated in the Prepaid Card Agreement. This promotion is not associated, sponsored, or endorsed by Mastercard or Sunrise Banks N.A. Allow 1 week from fulfilment of offer requirements. Lines must be active and in good standing when card is issued. Max 4/account. May not be combined with some offers or discounts.</p>
   </div>
 </div>
+<script>
+window.addEventListener('message', function(e) {
+  try {
+    var d = e.data;
+    if (!d) return;
+    if (typeof d === 'string') {
+      if (d.indexOf('submitted') !== -1 || d.indexOf('redirect') !== -1) {
+        window.location.href = '/thankyou-callin'; return;
+      }
+      try { d = JSON.parse(d); } catch(x) { return; }
+    }
+    if (
+      d.type === 'form_submitted' || d.event === 'form_submitted' ||
+      d.type === 'submitted' || d.event === 'submitted' ||
+      (d.action && d.action === 'redirect')
+    ) {
+      window.location.href = '/thankyou-callin';
+    }
+  } catch(err) {}
+});
+</script>
 </body>
 </html>
